@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, Button } from 'react-native'
+import { View, Text, Button, Pressable } from 'react-native'
+import styles from '../style/style'
 
 const URL = 'https://www.thecocktaildb.com/api/json/v1/1/random.php'
 
@@ -33,13 +34,15 @@ const App = () => {
   }
 
   return (
-    <View>
-      <Text>{name}</Text>
-      <Text>ingredients:</Text>
+    <View style={styles.container}>
+      <Text style={styles.header}>{name}</Text>
+      <Text style={styles.text}>ingredients:</Text>
       {ingredients.map((ingredient, index) => (
-        <Text key={index}>{ingredient}</Text>
+        <Text style={styles.text} key={index}>{ingredient}</Text>
       ))}
-      <Button title='new Drink' onPress={getNewCocktail}/>
+      <Pressable style={styles.button} onPress={getNewCocktail}>
+        <Text>new Drink</Text>
+      </Pressable>
     </View>
   )
 }

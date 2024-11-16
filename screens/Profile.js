@@ -6,7 +6,7 @@ import styles from '../style/style';
 export default function Profile() {
     return (
       <View style={styles.container}>
-        <Text>Profile</Text>
+        <Text style={styles.header}>Profile</Text>
         <StatusBar style="auto" />
       </View>
     );
