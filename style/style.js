@@ -18,6 +18,7 @@ export default StyleSheet.create({
     fontWeight: 'thin',
     fontSize: 20,
     textAlign: 'center',
+    maxWidth: 300
 },
     textinput: {
     borderWidth: 2,
