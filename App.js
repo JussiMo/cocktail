@@ -19,6 +19,7 @@ function TabNavigator() {
     <Tab.Navigator
       sceneContainerStyle={{ backgroundColor: 'transparent' }}
       screenOptions={({ route }) => ({
+        headerShown:false,
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
