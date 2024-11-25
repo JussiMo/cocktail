@@ -58,4 +58,15 @@ export default StyleSheet.create({
         flex: 1,
         textAlign: 'right',
     },
+    logout: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 24,
+        color: 'red',
+    },
+    label: {
+        fontSize: 20,
+        margin: 5,
+    },
 });
