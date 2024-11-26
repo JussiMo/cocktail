@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { FlatList, Image, Keyboard, Pressable, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, Keyboard, Pressable, ScrollView, Text, TextInput, Touchable, TouchableOpacity, View } from 'react-native';
 import styles from '../style/style';
 import { RadioButton } from 'react-native-paper';
 
@@ -53,7 +53,7 @@ export default function Search() {
         `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idDrink}`
       )
       const data = await response.json()
-      
+
 
       if (!data.drinks || data.drinks.length === 0) {
         setError("Something went wrong")
@@ -85,7 +85,7 @@ export default function Search() {
     } catch (error) {
       setError("Something went wrong2")
       console.log(error);
-      
+
     }
   }
 
@@ -100,13 +100,21 @@ export default function Search() {
         <>
           <Text style={styles.header}>Search</Text>
           <RadioButton.Group onValueChange={value => setSearchType(value)} value={searchType}>
-            <View style={styles.radioButtonRow}>
-              <RadioButton value='ingredient' />
-              <Text style={styles.radioButtonText}>Search by ingredient</Text>
+            <View>
+              <TouchableOpacity 
+              style={styles.radioButtonRow}
+              onPress={() => setSearchType("ingredient")}>
+                <RadioButton value='ingredient' />
+                <Text style={styles.radioButtonText}>Search by ingredient</Text>
+              </TouchableOpacity>
             </View>
-            <View style={styles.radioButtonRow}>
-              <RadioButton value='name'/>
-              <Text style={styles.radioButtonText}>Search by name</Text>
+            <View>
+              <TouchableOpacity 
+              style={styles.radioButtonRow}
+              onPress={() => setSearchType("name")}>
+                <RadioButton value='name' />
+                <Text style={styles.radioButtonText}>Search by name</Text>
+              </TouchableOpacity>
             </View>
           </RadioButton.Group>
           <TextInput
