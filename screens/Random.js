@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, Button, Pressable, Image, ScrollView } from 'react-native'
+import { collection, addDoc } from 'firebase/firestore'
+import { db, USERS_REF, DRINKS_REF } from '../firebase/Config'
+import { auth } from '../firebase/Config'
 import styles from '../style/style'
 
 const URL = 'https://www.thecocktaildb.com/api/json/v1/1/random.php'
@@ -11,6 +14,7 @@ const Random = () => {
   const [image, setImage] = useState()
   const [measures, setMeasures] = useState([])
   const [instructions, setInstructions] = useState('')
+  const [drinkId, setDrinkId] = useState ()
 
   useEffect(() => {
     fetch(URL)
@@ -21,6 +25,7 @@ const Random = () => {
         setName(drink.strDrink)
         setImage(drink.strDrinkThumb)
         setInstructions(drink.strInstructions)
+        setDrinkId(drink.idDrink)
 
         const ingredientList = Object.keys(drink)
           .filter(key => key.startsWith("strIngredient"))
@@ -40,9 +45,21 @@ const Random = () => {
       })
   }, [refresh])
 
+  const saveDrink = async (drinkId) => {
+    try {
+      const docRef = collection(db, USERS_REF, auth.currentUser.uid, DRINKS_REF )
+      await addDoc(docRef,{id: drinkId})
+      console.log('Drink ID saved: ', docRef.id)
+    } catch (error) {
+      console.error(error)
+    }
+  };
+
+
   const getNewCocktail = () => {
     setRefresh({})
   }
+
 
   return (
     <ScrollView>
@@ -60,6 +77,9 @@ const Random = () => {
         <Text>{instructions}</Text>
         <Pressable style={styles.button} onPress={getNewCocktail}>
           <Text>new Drink</Text>
+        </Pressable>
+        <Pressable style={styles.button} onPress={saveDrink}>
+          <Text>save drink</Text>
         </Pressable>
       </View>
     </ScrollView>
