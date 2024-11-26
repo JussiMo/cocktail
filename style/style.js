@@ -14,11 +14,11 @@ export default StyleSheet.create({
         marginBottom: Constants.statusBarHeight + 5,
     },
     text: {
-    color: '#070000',
-    fontWeight: 'thin',
-    fontSize: 20,
-    textAlign: 'center',
-},
+        color: '#070000',
+        fontWeight: 'thin',
+        fontSize: 20,
+        textAlign: 'center',
+    },
     textinput: {
         borderWidth: 2,
         margin: 10,
@@ -69,4 +69,17 @@ export default StyleSheet.create({
         fontSize: 20,
         margin: 5,
     },
+    back: {
+        fontSize: 20,
+        textAlign: 'left',
+        marginTop: Constants.statusBarHeight + 20,
+        marginBottom: Constants.statusBarHeight + 5,
+        marginLeft: Constants.statusBarHeight + 1,
+    },
+    radioButtonText: {
+        textAlignVertical: "center"
+    },
+    radioButtonRow: {
+        flexDirection: "row"
+    }
 });

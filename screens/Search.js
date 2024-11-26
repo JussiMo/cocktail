@@ -2,10 +2,11 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { FlatList, Image, Keyboard, Pressable, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import styles from '../style/style';
+import { RadioButton } from 'react-native-paper';
 
 export default function Search() {
 
-  const [ingredient, setIngredient] = useState('')
+  // const [ingredient, setIngredient] = useState('')
   const [cocktails, setCocktails] = useState([])
   const [error, setError] = useState(null)
   const [selectedCocktail, setSelectedCocktail] = useState(null)
@@ -15,13 +16,20 @@ export default function Search() {
   const [image, setImage] = useState()
   const [instructions, setInstructions] = useState('')
   const [measures, setMeasures] = useState([])
+  const [searchType, setSearchType] = useState("ingredient")
+  const [query, setQuery] = useState('')
 
   const searchCocktails = async () => {
     setError(null)
+    let URL = ''
+    if (searchType === "ingredient") {
+      URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${query}`
+    } else {
+      URL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`
+    }
+
     try {
-      const response = await fetch(
-        `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`
-      )
+      const response = await fetch(URL)
       const data = await response.json()
       // console.log(data)
 
@@ -91,11 +99,21 @@ export default function Search() {
       {!selectedCocktail ?
         <>
           <Text style={styles.header}>Search</Text>
+          <RadioButton.Group onValueChange={value => setSearchType(value)} value={searchType}>
+            <View style={styles.radioButtonRow}>
+              <RadioButton value='ingredient' />
+              <Text style={styles.radioButtonText}>Search by ingredient</Text>
+            </View>
+            <View style={styles.radioButtonRow}>
+              <RadioButton value='name'/>
+              <Text style={styles.radioButtonText}>Search by name</Text>
+            </View>
+          </RadioButton.Group>
           <TextInput
             style={styles.textinput}
-            placeholder='Search cocktails by ingredient'
-            value={ingredient}
-            onChangeText={(text) => setIngredient(text)}
+            placeholder={`Search cocktails by ${searchType}`}
+            value={query}
+            onChangeText={(text) => setQuery(text)}
           />
           <Pressable style={styles.button} onPress={searchCocktails}>
             <Text>Search</Text>
@@ -115,7 +133,7 @@ export default function Search() {
         <>
           <View>
             <Pressable onPress={goBack}>
-              <Text>Back</Text>
+              <Text style={styles.back}>Back</Text>
             </Pressable>
             <ScrollView>
               <View style={styles.container}>
