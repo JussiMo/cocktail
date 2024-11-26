@@ -5,6 +5,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase/Config';
 import { MaterialIcons } from '@expo/vector-icons';
 import styles from '../style/style';
+import style from '../style/style';
 
 export default function Login({ navigation }) {
 
@@ -13,7 +14,7 @@ export default function Login({ navigation }) {
   const [password, setPassword] = useState('');
   const [showForgotPw, setShowForgotPw] = useState(false);
   const [emailForgotPw, setEmailForgotPw] = useState('');
-  
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -62,10 +63,17 @@ export default function Login({ navigation }) {
     setShowForgotPw(!showForgotPw);
   }
 
+  const goBack = () => {
+    navigation.goBack();
+  }
+
   if (isLoggedIn) {
-    return(
+    return (
       <View style={styles.container}>
-        <View style={styles.headerItem}>
+        <Pressable onPress={goBack} style={styles.backButton}>
+         <MaterialIcons name="keyboard-backspace" size={40} color="black" />
+        </Pressable>
+        <View style={styles.headerItem}>      
           <Text style={styles.header}>Login</Text>
           <Pressable style={styles.logout} onPress={handlePressLogout}>
             <Text style={styles.logout}>Logout </Text>
@@ -75,17 +83,18 @@ export default function Login({ navigation }) {
         <Text style={styles.header}>
           You are logged in!
         </Text>
-        <Pressable style={styles.button}>
-          <Button
-            title="Profile"
-            onPress={() => navigation.navigate('Profile')} />
+        <Pressable style={styles.button} title="Profile" onPress={goBack}>
+          <Text>PROFILE</Text>
         </Pressable>
       </View>
     )
   }
-  else { 
+  else {
     return (
       <View style={styles.container}>
+        <Pressable onPress={goBack} style={styles.backButton}>
+         <MaterialIcons name="keyboard-backspace" size={40} color="black" />
+        </Pressable>
         <View style={styles.headerItem}>
           <Text style={styles.header}>Login</Text>
         </View>
@@ -105,23 +114,19 @@ export default function Login({ navigation }) {
           onChangeText={(password) => setPassword(password)}
           secureTextEntry={true}
         />
-        <Pressable style={styles.button}>
-          <Button 
-            title="Login"
-            onPress={handlePressLogin} />
+        <Pressable style={styles.button} title="Login" onPress={handlePressLogin}>
+          <Text>LOGIN</Text>
         </Pressable>
         <Text style={styles.infoText}>Dont have a profile yet?</Text>
-        <Pressable style={styles.button}>
-          <Button
-            title="Register"
-            onPress={() => navigation.navigate('Register')} />
+        <Pressable style={styles.button} title="Register" onPress={() => navigation.navigate('Register')}>
+          <Text>REGISTER</Text>
         </Pressable>
         <Pressable style={styles.button}>
-          <Text 
+          <Text
             style={styles.link}
             onPress={handlePressForgotPw}>Forgot password</Text>
         </Pressable>
-        { showForgotPw &&
+        {showForgotPw &&
           <>
             <TextInput
               style={styles.textinput}
@@ -131,10 +136,8 @@ export default function Login({ navigation }) {
               keyboardType="email-address"
               autoCapitalize="none"
             />
-            <Pressable style={styles.button}>
-              <Button
-                title="Reset password"
-                onPress={() => handlePressResetPw()} />
+            <Pressable style={styles.button} title="Reset password" onPress={() => handlePressResetPw()}>
+              <Text>RESET PASSWORD</Text>
             </Pressable>
             <Text style={styles.infoText}>
               Be sure to check your spam folder after resetting!

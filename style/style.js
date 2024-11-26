@@ -86,5 +86,23 @@ export default StyleSheet.create({
     headerImage: {
         height: 300,
         resizeMode: 'contain',
-    }
+    },
+    backButton: {
+        position: 'absolute',
+        top: 35,
+        left: 20,
+        padding: 10,
+        backgroundColor: 'transparent',
+        borderRadius: 50,
+      },
+      buttonDelete: {
+        margin: 10,
+        flexDirection: "row",
+        padding: 10,
+        backgroundColor: "red",
+        width: 100,
+        borderRadius: 15,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
 });

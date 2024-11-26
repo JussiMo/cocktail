@@ -56,10 +56,17 @@ export default function Register({ navigation }) {
     navigation.navigate('Login');
   }
 
+  const goBack = () => {
+    navigation.goBack();
+  }
+  
   if (isLoggedIn) {
     return(
       <View style={styles.container}>
         <View style={styles.headerItem}>
+        <Pressable onPress={goBack} style={styles.backButton}>
+         <MaterialIcons name="keyboard-backspace" size={40} color="black" />
+        </Pressable>
           <Text style={styles.header}>Register</Text>
           <Pressable style={styles.logout} onPress={handlePressLogout}>
             <Text style={styles.logout}>Logout </Text>
@@ -88,6 +95,9 @@ export default function Register({ navigation }) {
   else {
     return (
       <View style={styles.container}>
+             <Pressable onPress={goBack} style={styles.backButton}>
+         <MaterialIcons name="keyboard-backspace" size={40} color="black" />
+        </Pressable>
         <View style={styles.headerItem}>
           <Text style={styles.header}>Register</Text>
         </View>
@@ -120,16 +130,12 @@ export default function Register({ navigation }) {
           onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
           secureTextEntry={true}
         />
-        <Pressable style={styles.buttonStyle}>
-          <Button 
-            title="Register"
-            onPress={handlePressRegister} />
+        <Pressable style={styles.button} title="Register" onPress={handlePressRegister}>
+          <Text>REGISTER</Text>
         </Pressable>
-        <Text style={styles.infoText}>Already have an account?</Text>
-        <Pressable style={styles.buttonStyle}>
-          <Button
-            title="Login"
-            onPress={() => navigation.navigate('Login')} />
+          <Text style={styles.infoText}>Already have an account?</Text>
+        <Pressable style={styles.button} title="Login" onPress={() => navigation.navigate('Login')}>
+          <Text>LOGIN</Text>
         </Pressable>
       </View>
     );

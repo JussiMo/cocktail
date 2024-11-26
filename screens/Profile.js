@@ -15,6 +15,7 @@ export default function Profile({ navigation }) {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [confirmDelete, setConfirmDelete] = useState('');
+  const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
@@ -85,6 +86,10 @@ export default function Profile({ navigation }) {
     }
   }
 
+  const handlePressSettings = () => {
+    setShowSettings(!showSettings);
+  }
+
   if (!isLoggedIn) {
     return (
       <ScrollView>
@@ -109,25 +114,28 @@ export default function Profile({ navigation }) {
         <View style={styles.container}>
           <View style={styles.headerItem}>
             <Text style={styles.header}>Profile</Text>
+          <Text style={styles.label}>Logged in as: {nickname}</Text>
             <Pressable style={styles.logout} onPress={handlePressLogout}>
               <Text style={styles.logout}>Logout </Text>
               <MaterialIcons name="logout" size={24} color="red" />
             </Pressable>
           </View>
-          <Text style={styles.header}>Update profile</Text>
-          <Text style={styles.label}>Nickname: {nickname}</Text>
-          <Text style={styles.label}>Email: {email}</Text>
+          <Pressable style={styles.button}>
+          <Text
+            style={styles.link}
+            onPress={handlePressSettings}>SETTINGS</Text>
+        </Pressable>
+          {showSettings &&
+          <>
+          <Text style={styles.header}>Change your Nickname</Text>
           <TextInput
             value={nickname}
             style={styles.textinput}
             onChangeText={setNickname}
           />
-          <View style={styles.button}>
-            <Button
-              title="Update"
-              onPress={() => updateUserData()}
-            />
-          </View>
+          <Pressable style={styles.button} title="Update" onPress={() => updateUserData()}>
+            <Text>UPDATE</Text>
+          </Pressable>
           <Text style={styles.header}>Change your password</Text>
           <TextInput
             style={styles.textinput}
@@ -143,11 +151,9 @@ export default function Profile({ navigation }) {
             onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
             secureTextEntry={true}
           />
-          <View style={styles.button}>
-            <Button
-              title="Change password"
-              onPress={handlePressChangePw} />
-          </View>
+          <Pressable style={styles.button} title="Change password" onPress={handlePressChangePw}>
+            <Text>CHANGE PASSWORD</Text>
+          </Pressable>
           <Text style={styles.header}>Delete account</Text>
           <TextInput
             style={styles.textinput}
@@ -156,15 +162,14 @@ export default function Profile({ navigation }) {
             onChangeText={(confirmDelete) => setConfirmDelete(confirmDelete)}
             autoCapitalize="characters"
           />
-          <View style={styles.button}>
-            <Button
-              title="Delete account"
-              color="red"
-              onPress={() => handlePressDelete()} />
+          <View style={styles.buttonDelete} title="Delete account" color="red" onPress={() => handlePressDelete()}>
+            <Text>DELETE ACCOUNT</Text>
           </View>
           <Text style={styles.infoText}>
             Your data will be removed from the database!
           </Text>
+          </>
+        }
         </View>
       </ScrollView>
     );
