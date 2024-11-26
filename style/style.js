@@ -77,7 +77,8 @@ export default StyleSheet.create({
         marginLeft: Constants.statusBarHeight + 1,
     },
     radioButtonText: {
-        textAlignVertical: "center"
+        textAlignVertical: "center",
+        flexShrink: 1
     },
     radioButtonRow: {
         flexDirection: "row"
