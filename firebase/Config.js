@@ -23,4 +23,4 @@ const auth = initializeAuth(app, {
   
   export const db = getFirestore(app);
   export const USERS_REF = 'users';
-  export const TODOS_REF = 'todos';
+  export const DRINKS_REF = 'drinks';
