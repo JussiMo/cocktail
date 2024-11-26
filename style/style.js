@@ -81,5 +81,9 @@ export default StyleSheet.create({
     },
     radioButtonRow: {
         flexDirection: "row"
+    },
+    headerImage: {
+        height: 300,
+        resizeMode: 'contain',
     }
 });
