@@ -36,7 +36,12 @@ function TabNavigator() {
             <MaterialCommunityIcons name={iconName} size={size} color={color} />
           );
         },
-        tabBarActiveTintColor: 'steelblue',
+        tabBarStyle: {
+          backgroundColor: '#FFF1E6',
+          borderColor: '#511414',
+          borderTopWidth: 2,
+        },
+        tabBarActiveTintColor: '#511414',
         tabBarInactiveTintColor: 'gray',
       })}
     >
@@ -55,6 +60,8 @@ export default function App() {
         <Stack.Screen name="Tabs" component={TabNavigator} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Random" component={Random} />
       </Stack.Navigator>
     </NavigationContainer>
   );

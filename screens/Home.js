@@ -1,22 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { Image, ScrollView, Text, View } from 'react-native';
+import { Image, ScrollView, Text, View, Button, TouchableOpacity } from 'react-native';
 import styles from '../style/style';
 
-export default function Home() {
+export default function Home({navigation}) {
     return (
-      <ScrollView contentContainerStyle={{  alignItems: 'center', backgroundColor: '#ffffff'}}>
+      <View style={styles.homecontainer}>
         <Image 
           source={require('../assets/logo-cocktailapp.png')}
-          style={styles.headerImage}/>
-        <Text style={[styles.text, {marginTop: 0}]}>Shake things up and stir your imagination!</Text>
-        <Text style={[styles.text, {marginTop: 30, width: 320, textAlign: 'justify'}]}>Dive into the vibrant world of cocktails, where every sip tells a story. Whether you’re in the mood for something classic, daring, or completely unexpected, we’ve got you covered.</Text>
-        <Text style={[styles.text, {marginTop: 30, width: 320, textAlign: 'justify'}]}>✨ Feeling adventurous? Discover random cocktail recipes with a single tap.</Text>
-        <Text style={[styles.text, {marginTop: 30, width: 320, textAlign: 'justify'}]}>🔍 On the hunt? Search for your perfect mix.</Text>
-        <Text style={[styles.text, {marginTop: 30, width: 320, textAlign: 'justify'}]}>❤️ Found a favorite? Save it and build your personal collection of go-to drinks.</Text>
-        <Text style={[styles.text, {marginTop: 30, width: 320, textAlign: 'justify'}]}>Cocktails aren’t just drinks—they’re experiences in a glass. Let’s craft your next unforgettable one!</Text>
-        <Text style={[styles.text, {marginTop: 30, width: 320, textAlign: 'center', marginBottom: 100}]}>Cheers! 🥂</Text>
+          style={styles.homeimage}/>
+        <Text style={[styles.homeheading, {marginTop: 0}]}>Welcome to Cocktail Quest!</Text>
+        <Text style={[styles.hometext]}>Embark on your journey to becoming a true mixologist. Explore exciting recipes, master creative techniques, and craft cocktails that amaze. </Text>
+        <Text style={[styles.homeheading, {marginTop: 20, marginBottom: 20}]}>Create. Sip. Repeat.</Text>
+        <TouchableOpacity style={styles.homebutton} onPress={() => navigation.navigate('Random')}>
+          <Text style={[styles.homebuttontext]} >Let's go!</Text>
+        </TouchableOpacity>
         <StatusBar style="auto" />
-      </ScrollView>
+      </View>
     );
   }

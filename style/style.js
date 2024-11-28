@@ -2,10 +2,14 @@ import { StyleSheet } from 'react-native'
 import Constants from "expo-constants"
 
 export default StyleSheet.create({
+    body: {
+        backgroundColor: '#FFF1E6',
+        fontFamily: 'montserrat',
+    },
     container: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: '#fff',
+        backgroundColor: '#FFF1E6', 
     },
     header: {
         fontSize: 30,
@@ -77,32 +81,83 @@ export default StyleSheet.create({
         marginLeft: Constants.statusBarHeight + 1,
     },
     radioButtonText: {
-        textAlignVertical: "center",
-        flexShrink: 1
+        textAlignVertical: "center"
     },
     radioButtonRow: {
         flexDirection: "row"
     },
-    headerImage: {
-        height: 300,
-        resizeMode: 'contain',
+
+    //home.js tyylit//
+    homecontainer: {
+        backgroundColor:'#FFF1E6',
+        alignItems: 'center',
+        flex: 1,
     },
-    backButton: {
-        position: 'absolute',
-        top: 35,
-        left: 20,
-        padding: 10,
-        backgroundColor: 'transparent',
-        borderRadius: 50,
-      },
-      buttonDelete: {
-        margin: 10,
-        flexDirection: "row",
-        padding: 10,
-        backgroundColor: "red",
-        width: 100,
-        borderRadius: 15,
-        justifyContent: 'center',
-        alignItems: 'center'
+    homeimage: {
+        width: 400,
+        height: 400,
+        margin: 0,
     },
+    homeheading: {
+        fontWeight: '600',
+        fontSize: 20,
+    },
+    hometext: {
+        color: '#3F3A3C',
+        fontWeight: 400,
+        fontSize: 20,
+        textAlign: 'justify',
+        marginTop: 15,
+        width: 250,
+    },
+    csr: {
+        fontWeight: '600',
+        fontSize: 20,
+        marginBottom: 30,
+    },
+    homebutton: {
+        backgroundColor: '#511414',
+        color: '#3F3A3C',
+        paddingHorizontal: 50,
+        paddingVertical: 20,
+        borderRadius: 10,
+    },
+    homebuttontext: {
+        color: '#fdf1f5',
+        fontSize: 20,
+        
+    },
+
+    //RANDOM.JS TYYLIT//
+    randombutton: {
+        backgroundColor: '#511414',
+        color: '#3F3A3C',
+        marginTop: 15,
+        paddingHorizontal: 35,
+        paddingVertical: 20,
+        borderRadius: 10,
+    }, 
+    randombuttonpieni: {
+        backgroundColor: '#92736C',
+        color: '#3F3A3C',
+        margin: 15,
+        paddingHorizontal: 35,
+        paddingVertical: 20,
+        borderRadius: 10,
+        justifyContent: 'space-between',
+    },
+    randombuttontext: {
+        color: '#fdf1f5',
+        fontSize: 20,
+        
+    },
+    randombuttontextpieni: {
+        color: '#fdf1f5',
+        fontSize: 15,
+        textAlign: 'center',
+    },
+    buttoncontainer: {
+        flexDirection: 'row',
+        
+    }
 });
