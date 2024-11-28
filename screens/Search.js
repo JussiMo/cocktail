@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { FlatList, Image, Keyboard, Pressable, ScrollView, Text, TextInput, Touchable, TouchableOpacity, View } from 'react-native';
 import styles from '../style/style';
-import { RadioButton } from 'react-native-paper';
+import { RadioButton, Card } from 'react-native-paper';
 
 export default function Search() {
 
@@ -94,73 +94,77 @@ export default function Search() {
     setCocktailVisible(false)
   }
 
+  const Card = ({ cocktail, onPress }) => {
+    return (
+      <TouchableOpacity style={styles.card} onPress={() => onPress(cocktail.idDrink)}>
+        <Image source={{ uri: cocktail.strDrinkThumb }} style={styles.cardImage} />
+        <Text style={styles.cardTitle}>{cocktail.strDrink}</Text>
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <View style={styles.container}>
-      {!selectedCocktail ?
-        <>
-          <Text style={styles.header}>Search</Text>
-          <RadioButton.Group onValueChange={value => setSearchType(value)} value={searchType}>
-            <View>
-              <TouchableOpacity 
-              style={styles.radioButtonRow}
-              onPress={() => setSearchType("ingredient")}>
-                <RadioButton value='ingredient' />
-                <Text style={styles.radioButtonText}>Search by ingredient</Text>
-              </TouchableOpacity>
-            </View>
-            <View>
-              <TouchableOpacity 
-              style={styles.radioButtonRow}
-              onPress={() => setSearchType("name")}>
-                <RadioButton value='name' />
-                <Text style={styles.radioButtonText}>Search by name</Text>
-              </TouchableOpacity>
-            </View>
-          </RadioButton.Group>
-          <TextInput
-            style={styles.textinput}
-            placeholder={`Search cocktails by ${searchType}`}
-            value={query}
-            onChangeText={(text) => setQuery(text)}
-          />
-          <Pressable style={styles.button} onPress={searchCocktails}>
-            <Text>Search</Text>
+      {selectedCocktail ? (
+        <View>
+          <Pressable onPress={goBack}>
+            <Text style={styles.back}>Back</Text>
           </Pressable>
-          {error && <Text>{error}</Text>}
-          <FlatList
-            data={cocktails}
-            keyExtractor={(item) => item.idDrink}
-            renderItem={({ item }) => (
-              <TouchableOpacity onPress={() => CocktailData(item.idDrink)}>
-                <Text>{item.strDrink}</Text>
-              </TouchableOpacity>
-            )}
-          />
-        </>
-        :
-        <>
-          <View>
-            <Pressable onPress={goBack}>
-              <Text style={styles.back}>Back</Text>
-            </Pressable>
-            <ScrollView>
-              <View style={styles.container}>
-                <Text style={styles.header}>{name}</Text>
-                <Image source={{ uri: image }} style={styles.image} />
-                <Text style={styles.text}>ingredients:</Text>
-                {ingredients.map((ingredient, index) => (
-                  <View key={index} style={styles.ingredientRow}>
-                    <Text style={styles.ingredient}>{ingredient}</Text>
-                    <Text style={styles.measure}>{measures[index] || ''}</Text>
-                  </View>
-                ))}
-                <Text style={styles.text}> Instructions: </Text>
-                <Text>{instructions}</Text>
+          <View style={styles.container}>
+            <Text style={styles.header}>{name}</Text>
+            <Image source={{ uri: image }} style={styles.image} />
+            <Text style={styles.text}>Ingredients:</Text>
+            {ingredients.map((ingredient, index) => (
+              <View key={index} style={styles.ingredientRow}>
+                <Text style={styles.ingredient}>{ingredient}</Text>
+                <Text style={styles.measure}>{measures[index] || ''}</Text>
               </View>
-            </ScrollView>
+            ))}
+            <Text style={styles.text}>Instructions:</Text>
+            <Text>{instructions}</Text>
           </View>
-        </>
-      }
+        </View>
+      ) : (
+        <FlatList
+          data={cocktails}
+          keyExtractor={(item) => item.idDrink}
+          ListHeaderComponent={
+            <View style={{ alignItems: 'center' }}>
+              <Text style={styles.header}>Search</Text>
+              <RadioButton.Group onValueChange={(value) => setSearchType(value)} value={searchType}>
+                <View>
+                  <TouchableOpacity
+                    style={styles.radioButtonRow}
+                    onPress={() => setSearchType('ingredient')}>
+                    <RadioButton value="ingredient" />
+                    <Text style={styles.radioButtonText}>Search by ingredient</Text>
+                  </TouchableOpacity>
+                </View>
+                <View>
+                  <TouchableOpacity
+                    style={styles.radioButtonRow}
+                    onPress={() => setSearchType('name')}>
+                    <RadioButton value="name" />
+                    <Text style={styles.radioButtonText}>Search by name</Text>
+                  </TouchableOpacity>
+                </View>
+              </RadioButton.Group>
+              <TextInput
+                style={styles.textinput}
+                placeholder={`Search cocktails by ${searchType}`}
+                value={query}
+                onChangeText={(text) => setQuery(text)}
+              />
+              <Pressable style={styles.button} onPress={searchCocktails}>
+                <Text>Search</Text>
+              </Pressable>
+              {error && <Text>{error}</Text>}
+            </View>
+          }
+          renderItem={({ item }) => <Card cocktail={item} onPress={CocktailData}></Card>}
+          style={{ width: '100%' }}
+        />
+      )}
       <StatusBar style="auto" />
     </View>
   );

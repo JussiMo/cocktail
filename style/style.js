@@ -159,5 +159,25 @@ export default StyleSheet.create({
     buttoncontainer: {
         flexDirection: 'row',
         
-    }
+    },
+    card: {
+        backgroundColor: '#ffff',
+        margin: 10,
+        borderRadius: 10,
+        overflow: 'hidden',
+        shadowColor: 'black',
+        elevation: 10,
+    },
+    cardImage: {
+        width: '100%',
+        height: 150,
+        resizeMode: 'cover',
+    },
+    cardTitle: {
+        padding: 10,
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        color: 'black',
+    },
 });
