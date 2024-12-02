@@ -124,6 +124,11 @@ export default StyleSheet.create({
         paddingHorizontal: 50,
         paddingVertical: 20,
         borderRadius: 10,
+        shadowColor: '#511414',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        elevation: 5,
     },
     homebuttontext: {
         color: '#fdf1f5',
@@ -193,6 +198,10 @@ export default StyleSheet.create({
         margin: 10,
         borderWidth: 2,
         borderColor: '#511414',
+        shadowColor: '#511414',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
         elevation: 5,
     },
     randombuttontext: {
