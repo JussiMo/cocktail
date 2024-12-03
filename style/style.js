@@ -9,10 +9,10 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: '#FFF1E6', 
     },
     header: {
         fontSize: 30,
+        color: '#F1E9DC',
         textAlign: 'center',
         marginTop: Constants.statusBarHeight + 10,
         marginBottom: Constants.statusBarHeight + 5,
@@ -161,7 +161,6 @@ export default StyleSheet.create({
      //RANDOM.JS TYYLIT//
      randContainer: {
             flex: 1,
-            backgroundColor: '#FFF1E6', 
      },
      randomcontainer: {
         padding: 20,

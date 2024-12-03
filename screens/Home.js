@@ -6,7 +6,6 @@ import styles from '../style/style';
 
 export default function Home({navigation}) {
     return (
-
       <LinearGradient
       colors={['#2c0305', '#511414', ]} // Gradient colors 
       style={[styles.gradient]}

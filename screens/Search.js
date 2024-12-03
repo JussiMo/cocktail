@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { FlatList, Image, Keyboard, Pressable, ScrollView, Text, TextInput, Touchable, TouchableOpacity, View } from 'react-native';
 import styles from '../style/style';
 import { RadioButton, Card } from 'react-native-paper';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function Search() {
 
@@ -104,6 +105,10 @@ export default function Search() {
   };
 
   return (
+    <LinearGradient
+      colors={['#2c0305', '#511414', ]} // Gradient colors 
+      style={[styles.gradient]}
+    >
     <View style={styles.container}>
       {selectedCocktail ? (
         <View>
@@ -167,5 +172,6 @@ export default function Search() {
       )}
       <StatusBar style="auto" />
     </View>
+    </LinearGradient>
   );
 }

@@ -5,6 +5,7 @@ import { db, USERS_REF, DRINKS_REF } from '../firebase/Config'
 import { auth } from '../firebase/Config'
 import Animated, { FadeIn, FadeOut, FadeOutUp, Layout } from 'react-native-reanimated';
 import { MaterialIcons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 import styles from '../style/style'
 
 
@@ -75,6 +76,10 @@ console.log(drinkId)
 
 
   return (
+    <LinearGradient
+      colors={['#2c0305', '#511414', ]} // Gradient colors 
+      style={[styles.gradient]}
+    >
     <View style={styles.randContainer}>
     <ScrollView contentContainerStyle={[styles.randomcontainer]}>
         <Text style={styles.header}>{name}</Text>
@@ -131,6 +136,7 @@ console.log(drinkId)
         </Pressable>
         </View>
       </View>
+      </LinearGradient>
   )
 }
 
