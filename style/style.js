@@ -20,7 +20,7 @@ export default StyleSheet.create({
     text: {
         color: '#070000',
         fontWeight: 'thin',
-        fontSize: 20,
+        fontSize: 16,
         textAlign: 'center',
     },
     textinput: {
@@ -43,7 +43,9 @@ export default StyleSheet.create({
     image: {
         width: 200,
         height: 200,
-        borderRadius: 10
+        borderRadius: 10,
+        shadowColor: '#511414',
+        elevation: 5,
     },
     ingredientRow: {
         flexDirection: 'row',
@@ -56,6 +58,7 @@ export default StyleSheet.create({
         fontSize: 16,
         flex: 1,
         textAlign: 'left',
+        color: '#511414',
     },
     measure: {
         fontSize: 16,
@@ -124,43 +127,15 @@ export default StyleSheet.create({
         paddingHorizontal: 50,
         paddingVertical: 20,
         borderRadius: 10,
+        shadowColor: '#511414',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        elevation: 5,
     },
     homebuttontext: {
         color: '#fdf1f5',
         fontSize: 20,
-        
-    },
-
-    //RANDOM.JS TYYLIT//
-    randombutton: {
-        backgroundColor: '#511414',
-        color: '#3F3A3C',
-        marginTop: 15,
-        paddingHorizontal: 35,
-        paddingVertical: 20,
-        borderRadius: 10,
-    }, 
-    randombuttonpieni: {
-        backgroundColor: '#92736C',
-        color: '#3F3A3C',
-        margin: 15,
-        paddingHorizontal: 35,
-        paddingVertical: 20,
-        borderRadius: 10,
-        justifyContent: 'space-between',
-    },
-    randombuttontext: {
-        color: '#fdf1f5',
-        fontSize: 20,
-        
-    },
-    randombuttontextpieni: {
-        color: '#fdf1f5',
-        fontSize: 15,
-        textAlign: 'center',
-    },
-    buttoncontainer: {
-        flexDirection: 'row',
         
     },
     card: {
@@ -182,5 +157,68 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         color: 'black',
+    },
+     //RANDOM.JS TYYLIT//
+     randContainer: {
+            flex: 1,
+            backgroundColor: '#FFF1E6', 
+     },
+     randomcontainer: {
+        padding: 20,
+        alignContent: 'center',
+        alignItems: 'center', 
+    },
+    randombutton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginTop: 10,
+        backgroundColor: '#FFF1E6',
+        borderWidth: 2,
+        borderColor: '#511414',
+        color: '#511414',
+        paddingVertical: 15,
+        paddingHorizontal: 20,
+        borderRadius: 10,
+        width: '90%',
+        marginBottom: 15,
+        shadowColor: '#511414',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        elevation: 5,
+    },
+    buttoncontainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignContent: 'center',
+    },
+    randombuttonpieni: {
+        backgroundColor: '#FFF1E6',
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        borderRadius: 10,
+        margin: 10,
+        borderWidth: 2,
+        borderColor: '#511414',
+        shadowColor: '#511414',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        elevation: 5,
+    },
+    randombuttontext: {
+        color: '#511414',
+        fontSize: 20,
+    },
+    randombuttontextpieni: {
+        color: '#511414',
+        fontSize: 15,
+        textAlign: 'center',
+    },
+    ingredientContainer: {
+        padding: 15,
+        borderRadius: 10,
+        marginBottom: 20,
     },
 });

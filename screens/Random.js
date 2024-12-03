@@ -3,8 +3,10 @@ import { View, Text, Button, Pressable, Image, ScrollView } from 'react-native'
 import { collection, addDoc } from 'firebase/firestore'
 import { db, USERS_REF, DRINKS_REF } from '../firebase/Config'
 import { auth } from '../firebase/Config'
+import Animated, { FadeIn, FadeOut, FadeOutUp, Layout } from 'react-native-reanimated';
+import { MaterialIcons } from '@expo/vector-icons';
 import styles from '../style/style'
-import style from '../style/style'
+
 
 const URL = 'https://www.thecocktaildb.com/api/json/v1/1/random.php'
 
@@ -17,6 +19,7 @@ const Random = () => {
   const [instructions, setInstructions] = useState('')
   const [drinkId, setDrinkId] = useState ()
   const [showIngredients, setShowIngredients] = useState(false);
+  const [showInstructions, setShowInstructions] = useState(false);
 
   useEffect(() => {
     fetch(URL)
@@ -48,37 +51,48 @@ const Random = () => {
   }, [refresh])
 
   const saveDrink = async (drinkId) => {
+
+    const drinkIdNumber = Number(drinkId)
+
     try {
       const docRef = collection(db, USERS_REF, auth.currentUser.uid, DRINKS_REF )
-      await addDoc(docRef,{id: drinkId})
-      console.log('Drink ID saved: ', docRef.id)
+      const newDoc = await addDoc(docRef,{id: drinkIdNumber})
+      console.log('Drink ID saved: ', newDoc.id)
     } catch (error) {
       console.error(error)
     }
-  };
+  }
 
 
   const getNewCocktail = () => {
     setRefresh({})
   }
 
+console.log(typeof drinkIdNumber)
+console.log(drinkId)
+
+
+
 
   return (
-    <ScrollView contentContainerStyle={[styles.body]}
-    contentInsetAdjustmentBehavior="automatic">
-      <View style={styles.container}>
+    <View style={styles.randContainer}>
+    <ScrollView contentContainerStyle={[styles.randomcontainer]}>
         <Text style={styles.header}>{name}</Text>
         <Image source={{ uri: image }} style={styles.image} />
         <Pressable 
           style={[styles.randombutton]} 
-          onPress={() => setShowIngredients(!showIngredients)} // Näytä/piilota
-        >
+          onPress={() => setShowIngredients(!showIngredients)}>
           <Text style={styles.randombuttontext}>
             {showIngredients ? 'Hide Ingredients' : 'Show Ingredients'}
           </Text>
+          <MaterialIcons name="chevron-right" size={24} color={"#511414"}/>
         </Pressable> 
-        {showIngredients && ( /* Näytä ainesosat, jos tila on "true" */
-          <View style={styles.ingredientContainer}>
+        {showIngredients && (
+          <Animated.View
+            style={styles.ingredientContainer}
+            entering={FadeIn.duration(500)} // Sisääntuloefekti
+            layout={Layout}
+          >
             {ingredients.map((ingredient, index) => (
               <View key={index} style={styles.ingredientRow}>
                 <Text style={styles.ingredient}>
@@ -86,10 +100,28 @@ const Random = () => {
                 </Text>
               </View>
             ))}
-          </View>
+          </Animated.View>
         )}
-        <Text style={styles.text}> Instructions: </Text>
-        <Text>{instructions}</Text>
+        <Pressable
+          style={[styles.randombutton]}
+          onPress={() => setShowInstructions(!showInstructions)}
+          >
+          <Text style = {styles.randombuttontext}>
+            {showInstructions ? 'Hide Instructions' : 'Show Instructions'}
+          </Text>
+          <MaterialIcons name="chevron-right" size={24} color={"#511414"}/>
+          </Pressable>
+          {showInstructions && (
+            <Animated.View
+            style={styles.ingredientContainer}
+            entering={FadeIn.duration(500)} // Sisääntuloefekti
+            layout={Layout}
+            >
+              <Text style={styles.text}>{instructions}</Text>
+            </Animated.View>
+          )}
+        </ScrollView>
+
         <View style={styles.buttoncontainer}>
         <Pressable style={styles.randombuttonpieni} onPress={getNewCocktail}>
           <Text style={styles.randombuttontextpieni}>New Drink</Text>
@@ -99,7 +131,6 @@ const Random = () => {
         </Pressable>
         </View>
       </View>
-    </ScrollView>
   )
 }
 
