@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useFonts } from 'expo-font';
 
 import Home from './screens/Home';
 import Random from './screens/Random';
@@ -54,6 +55,14 @@ function TabNavigator() {
 }
 
 export default function App() {
+
+  const [loaded] = useFonts({
+    IMFell: require('./assets/fonts/IMFellDWPicaSC-Regular.ttf'),
+  });
+
+  if (!loaded){
+    return null;
+  }
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>

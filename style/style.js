@@ -11,6 +11,7 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
     header: {
+        fontFamily:'IMFell',
         fontSize: 30,
         color: '#F1E9DC',
         textAlign: 'center',
@@ -104,6 +105,7 @@ export default StyleSheet.create({
         margin: 0,
     },
     homeheading: {
+        fontFamily: '',
         fontWeight: '600',
         fontSize: 20,
         color: '#F1E9DC',
@@ -134,9 +136,9 @@ export default StyleSheet.create({
         elevation: 5,
     },
     homebuttontext: {
+        fontFamily:'IMFell',
         color: '#fdf1f5',
         fontSize: 20,
-        
     },
     card: {
         backgroundColor: '#ffff',
@@ -207,10 +209,12 @@ export default StyleSheet.create({
         elevation: 5,
     },
     randombuttontext: {
+        fontFamily:'IMFell',
         color: '#511414',
         fontSize: 20,
     },
     randombuttontextpieni: {
+        fontFamily:'IMFell',
         color: '#511414',
         fontSize: 15,
         textAlign: 'center',
