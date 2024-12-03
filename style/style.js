@@ -86,10 +86,12 @@ export default StyleSheet.create({
     radioButtonRow: {
         flexDirection: "row"
     },
+    gradient: { 
+        flex: 1, 
+    },
 
     //home.js tyylit//
     homecontainer: {
-        backgroundColor:'#FFF1E6',
         alignItems: 'center',
         flex: 1,
     },
@@ -101,9 +103,10 @@ export default StyleSheet.create({
     homeheading: {
         fontWeight: '600',
         fontSize: 20,
+        color: '#F1E9DC',
     },
     hometext: {
-        color: '#3F3A3C',
+        color: '#F1E9DC',
         fontWeight: 400,
         fontSize: 20,
         textAlign: 'justify',
@@ -116,7 +119,7 @@ export default StyleSheet.create({
         marginBottom: 30,
     },
     homebutton: {
-        backgroundColor: '#511414',
+        backgroundColor: '#2e0002',
         color: '#3F3A3C',
         paddingHorizontal: 50,
         paddingVertical: 20,
