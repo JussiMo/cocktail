@@ -51,19 +51,27 @@ const Random = () => {
   }, [refresh])
 
   const saveDrink = async (drinkId) => {
+
+    const drinkIdNumber = Number(drinkId)
+
     try {
       const docRef = collection(db, USERS_REF, auth.currentUser.uid, DRINKS_REF )
-      await addDoc(docRef,{id: drinkId})
-      console.log('Drink ID saved: ', docRef.id)
+      const newDoc = await addDoc(docRef,{id: drinkIdNumber})
+      console.log('Drink ID saved: ', newDoc.id)
     } catch (error) {
       console.error(error)
     }
-  };
+  }
 
 
   const getNewCocktail = () => {
     setRefresh({})
   }
+
+console.log(typeof drinkIdNumber)
+console.log(drinkId)
+
+
 
 
   return (
