@@ -4,6 +4,9 @@ import { FlatList, Image, Keyboard, Pressable, ScrollView, Text, TextInput, Touc
 import styles from '../style/style';
 import { RadioButton, Card } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
+import { MaterialIcons } from '@expo/vector-icons';
+import Animated, { FadeIn, FadeOut, FadeOutUp, Layout } from 'react-native-reanimated';
+
 
 export default function Search() {
 
@@ -19,6 +22,8 @@ export default function Search() {
   const [measures, setMeasures] = useState([])
   const [searchType, setSearchType] = useState("ingredient")
   const [query, setQuery] = useState('')
+  const [showIngredients, setShowIngredients] = useState(false)
+  const [showInstructions, setShowInstructions] = useState(false)
 
   const searchCocktails = async () => {
     setError(null)
@@ -118,15 +123,47 @@ export default function Search() {
           <View style={styles.container}>
             <Text style={styles.header}>{name}</Text>
             <Image source={{ uri: image }} style={styles.image} />
-            <Text style={styles.text}>Ingredients:</Text>
+            <Pressable 
+          style={[styles.randombutton]} 
+          onPress={() => setShowIngredients(!showIngredients)}>
+          <Text style={styles.randombuttontext}>
+            {showIngredients ? 'Hide Ingredients' : 'Show Ingredients'}
+          </Text>
+          <MaterialIcons name="chevron-right" size={24} color={"#511414"}/>
+        </Pressable> 
+        {showIngredients && (
+          <Animated.View
+            style={styles.ingredientContainer}
+            entering={FadeIn.duration(500)} // Sisääntuloefekti
+            layout={Layout}
+          >
             {ingredients.map((ingredient, index) => (
               <View key={index} style={styles.ingredientRow}>
-                <Text style={styles.ingredient}>{ingredient}</Text>
-                <Text style={styles.measure}>{measures[index] || ''}</Text>
+                <Text style={styles.ingredient}>
+                  {ingredient} - {measures[index] || ''}
+                </Text>
               </View>
             ))}
-            <Text style={styles.text}>Instructions:</Text>
-            <Text>{instructions}</Text>
+          </Animated.View>
+        )}
+        <Pressable
+          style={[styles.randombutton]}
+          onPress={() => setShowInstructions(!showInstructions)}
+          >
+          <Text style = {styles.randombuttontext}>
+            {showInstructions ? 'Hide Instructions' : 'Show Instructions'}
+          </Text>
+          <MaterialIcons name="chevron-right" size={24} color={"#511414"}/>
+          </Pressable>
+          {showInstructions && (
+            <Animated.View
+            style={styles.ingredientContainer}
+            entering={FadeIn.duration(500)} // Sisääntuloefekti
+            layout={Layout}
+            >
+              <Text style={styles.text}>{instructions}</Text>
+            </Animated.View>
+          )}
           </View>
         </View>
       ) : (
