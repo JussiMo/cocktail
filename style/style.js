@@ -245,4 +245,23 @@ export default StyleSheet.create({
         borderRadius: 10,
         marginBottom: 20,
     },
+    // Profile.js tyylit
+    backButton: {
+        position: 'absolute',
+        top: 35,
+        left: 20,
+        padding: 10,
+        backgroundColor: 'transparent',
+        borderRadius: 50,
+      },
+      buttonDelete: {
+        margin: 10,
+        flexDirection: "row",
+        padding: 10,
+        backgroundColor: "red",
+        width: 100,
+        borderRadius: 15,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
 });

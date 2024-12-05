@@ -5,7 +5,6 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase/Config';
 import { MaterialIcons } from '@expo/vector-icons';
 import styles from '../style/style';
-import style from '../style/style';
 
 export default function Login({ navigation }) {
 
@@ -39,7 +38,7 @@ export default function Login({ navigation }) {
         if (user) {
           setEmail('');
           setPassword('');
-          navigation.navigate('Profile');
+          navigation.navigate('Tabs', { screen: 'Profile'});
         }
       });
     }
