@@ -207,7 +207,6 @@ export default function Search() {
             style={{ width: '100%' }}
           />
         )}
-        <StatusBar style="auto" />
       </View>
     </LinearGradient>
   );
