@@ -117,9 +117,11 @@ export default function Search() {
       <View>
         {selectedCocktail ? (
             <ScrollView contentContainerStyle={[styles.randomcontainer]}>
+              <View style={{ alignSelf: 'flex-start'}}>
               <Pressable onPress={goBack}>
                 <Text style={styles.back}>Back</Text>
               </Pressable>
+              </View>
               <View style={styles.container}>
                 <Text style={styles.header}>{name}</Text>
                 <Image source={{ uri: image }} style={styles.image} />
