@@ -52,9 +52,16 @@ const Random = () => {
   }, [refresh])
 
   const saveDrink = async (drinkId) => {
-
+    
     const drinkIdNumber = Number(drinkId)
-
+    if (isNaN(drinkIdNumber)) {
+      console.error("Invalid drinkId: must be a valid number")
+      return
+    }
+    if (!auth.currentUser) {
+      console.error("User is not authenticated")
+      return
+    }
     try {
       const docRef = collection(db, USERS_REF, auth.currentUser.uid, DRINKS_REF )
       const newDoc = await addDoc(docRef,{id: drinkIdNumber})
@@ -64,13 +71,11 @@ const Random = () => {
     }
   }
 
-
   const getNewCocktail = () => {
     setRefresh({})
   }
 
-console.log(typeof drinkIdNumber)
-console.log(drinkId)
+
 
 
 
@@ -131,7 +136,7 @@ console.log(drinkId)
         <Pressable style={styles.randombuttonpieni} onPress={getNewCocktail}>
           <Text style={styles.randombuttontextpieni}>New Drink</Text>
         </Pressable>
-        <Pressable style={styles.randombuttonpieni} onPress={saveDrink}>
+        <Pressable style={styles.randombuttonpieni} onPress={()=>saveDrink(drinkId)}>
           <Text style={styles.randombuttontextpieni}>Save drink</Text>
         </Pressable>
         </View>
