@@ -11,6 +11,7 @@ import Search from './screens/Search';
 import Profile from './screens/Profile';
 import Login from './screens/Login';
 import Register from './screens/Register';
+import { StatusBar } from 'expo-status-bar';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -72,6 +73,7 @@ export default function App() {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Random" component={Random} />
       </Stack.Navigator>
+      <StatusBar style="light" />
     </NavigationContainer>
   );
 }
