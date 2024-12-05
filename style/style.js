@@ -59,7 +59,7 @@ export default StyleSheet.create({
         fontSize: 16,
         flex: 1,
         textAlign: 'left',
-        color: '#511414',
+        color: '#ffffff',
     },
     measure: {
         fontSize: 16,
