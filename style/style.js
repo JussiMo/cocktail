@@ -19,27 +19,34 @@ export default StyleSheet.create({
         marginBottom: Constants.statusBarHeight + 5,
     },
     text: {
-        color: '#070000',
+        color: '#F1E9DC',
         fontWeight: 'thin',
         fontSize: 16,
         textAlign: 'center',
     },
     textinput: {
-        borderWidth: 2,
+        color: '#F1E9DC',
         margin: 10,
         padding: 10,
+        borderWidth: 1,
         borderRadius: 10,
+        borderColor: '#F1E9DC',
         width: 250
     },
     button: {
         margin: 10,
         flexDirection: "row",
         padding: 10,
-        backgroundColor: "#73CED6",
+        backgroundColor: '#FFF1E6',
         width: 100,
-        borderRadius: 15,
+        borderRadius: 10,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        shadowColor: '#511414',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        elevation: 5,
     },
     image: {
         width: 200,
@@ -59,7 +66,7 @@ export default StyleSheet.create({
         fontSize: 16,
         flex: 1,
         textAlign: 'left',
-        color: '#511414',
+        color: '#F1E9DC',
     },
     measure: {
         fontSize: 16,
@@ -79,16 +86,24 @@ export default StyleSheet.create({
     },
     back: {
         fontSize: 20,
-        textAlign: 'left',
+        textAlign: 'center',
+        color: '#F1E9DC',
+        borderColor: '#F1E9DC',
+        borderWidth: 1,
+        borderRadius: 10,
+        maxWidth: '22%',
+        paddingHorizontal: 10,
+        paddingVertical: 5,
         marginTop: Constants.statusBarHeight + 20,
         marginBottom: Constants.statusBarHeight + 5,
         marginLeft: Constants.statusBarHeight + 1,
     },
     radioButtonText: {
-        textAlignVertical: "center"
+        textAlignVertical: "center",
+        color: '#F1E9DC',
     },
     radioButtonRow: {
-        flexDirection: "row"
+        flexDirection: 'row',
     },
     gradient: { 
         flex: 1, 
@@ -125,7 +140,6 @@ export default StyleSheet.create({
     },
     homebutton: {
         backgroundColor: '#2e0002',
-        color: '#3F3A3C',
         paddingHorizontal: 50,
         paddingVertical: 20,
         borderRadius: 10,
@@ -137,13 +151,16 @@ export default StyleSheet.create({
     },
     homebuttontext: {
         fontFamily:'IMFell',
-        color: '#fdf1f5',
+        color: '#F1E9DC',
         fontSize: 20,
     },
     card: {
         backgroundColor: '#ffff',
         margin: 10,
+        marginBottom: 20,
         borderRadius: 10,
+        borderColor: '#F1E9DC',
+        borderWidth: 0.5,
         overflow: 'hidden',
         shadowColor: 'black',
         elevation: 10,
@@ -158,7 +175,9 @@ export default StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         textAlign: 'center',
-        color: 'black',
+        color: '#F1E9DC',
+        backgroundColor: '#2e0002',
+     
     },
      //RANDOM.JS TYYLIT//
      randContainer: {
@@ -183,11 +202,12 @@ export default StyleSheet.create({
         borderRadius: 10,
         width: '90%',
         marginBottom: 15,
-        shadowColor: '#511414',
+        shadowColor: '#FFF1E6',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
         shadowRadius: 5,
         elevation: 5,
+        
     },
     buttoncontainer: {
         flexDirection: 'row',

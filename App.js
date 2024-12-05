@@ -38,11 +38,11 @@ function TabNavigator() {
           );
         },
         tabBarStyle: {
-          backgroundColor: '#FFF1E6',
-          borderColor: '#511414',
+          backgroundColor: '#511414',
+          borderColor: '#2e0002',
           borderTopWidth: 2,
         },
-        tabBarActiveTintColor: '#511414',
+        tabBarActiveTintColor: '#FFF1E6',
         tabBarInactiveTintColor: 'gray',
       })}
     >

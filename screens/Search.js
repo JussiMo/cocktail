@@ -8,6 +8,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import Animated, { FadeIn, FadeOut, FadeOutUp, Layout } from 'react-native-reanimated';
 
 
+
 export default function Search() {
 
   // const [ingredient, setIngredient] = useState('')
@@ -178,7 +179,7 @@ export default function Search() {
                   <TouchableOpacity
                     style={styles.radioButtonRow}
                     onPress={() => setSearchType('ingredient')}>
-                    <RadioButton value="ingredient" />
+                    <RadioButton value="ingredient" color='#F1E9DC'/>
                     <Text style={styles.radioButtonText}>Search by ingredient</Text>
                   </TouchableOpacity>
                 </View>
@@ -186,7 +187,7 @@ export default function Search() {
                   <TouchableOpacity
                     style={styles.radioButtonRow}
                     onPress={() => setSearchType('name')}>
-                    <RadioButton value="name" />
+                    <RadioButton value="name" color='#F1E9DC' />
                     <Text style={styles.radioButtonText}>Search by name</Text>
                   </TouchableOpacity>
                 </View>
@@ -194,17 +195,18 @@ export default function Search() {
               <TextInput
                 style={styles.textinput}
                 placeholder={`Search cocktails by ${searchType}`}
+                placeholderTextColor='grey'
                 value={query}
                 onChangeText={(text) => setQuery(text)}
               />
               <Pressable style={styles.button} onPress={searchCocktails}>
-                <Text>Search</Text>
+                <Text style={{fontFamily: 'IMFell', fontSize: 18}}>Search</Text>
               </Pressable>
-              {error && <Text>{error}</Text>}
+              {error && <Text style={styles.text}>{error}</Text>}
             </View>
           }
           renderItem={({ item }) => <Card cocktail={item} onPress={CocktailData}></Card>}
-          style={{ width: '100%' }}
+          style={{ width: '100%'}}
         />
       )}
       <StatusBar style="auto" />
