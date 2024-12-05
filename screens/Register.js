@@ -45,7 +45,7 @@ export default function Register({ navigation }) {
           setEmail('');
           setPassword('');
           setConfirmPassword('');
-          navigation.navigate('Profile');
+          navigation.navigate('Tabs', { screen: 'Profile'});
         } 
       });
     }
