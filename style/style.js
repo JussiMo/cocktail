@@ -97,6 +97,7 @@ export default StyleSheet.create({
         marginTop: Constants.statusBarHeight + 20,
         marginBottom: Constants.statusBarHeight + 5,
         marginLeft: Constants.statusBarHeight + 1,
+        color: 'white'
     },
     radioButtonText: {
         textAlignVertical: "center",

@@ -112,105 +112,105 @@ export default function Search() {
 
   return (
     <LinearGradient
-      colors={['#2c0305', '#511414', ]} // Gradient colors 
+      colors={['#2c0305', '#511414',]} // Gradient colors 
       style={[styles.gradient]}
     >
-    <View style={styles.container}>
-      {selectedCocktail ? (
-        <View>
-          <Pressable onPress={goBack}>
-            <Text style={styles.back}>Back</Text>
-          </Pressable>
-          <View style={styles.container}>
-            <Text style={styles.header}>{name}</Text>
-            <Image source={{ uri: image }} style={styles.image} />
-            <Pressable 
-          style={[styles.randombutton]} 
-          onPress={() => setShowIngredients(!showIngredients)}>
-          <Text style={styles.randombuttontext}>
-            {showIngredients ? 'Hide Ingredients' : 'Show Ingredients'}
-          </Text>
-          <MaterialIcons name="chevron-right" size={24} color={"#511414"}/>
-        </Pressable> 
-        {showIngredients && (
-          <Animated.View
-            style={styles.ingredientContainer}
-            entering={FadeIn.duration(500)} // Sisääntuloefekti
-            layout={Layout}
-          >
-            {ingredients.map((ingredient, index) => (
-              <View key={index} style={styles.ingredientRow}>
-                <Text style={styles.ingredient}>
-                  {ingredient} - {measures[index] || ''}
-                </Text>
-              </View>
-            ))}
-          </Animated.View>
-        )}
-        <Pressable
-          style={[styles.randombutton]}
-          onPress={() => setShowInstructions(!showInstructions)}
-          >
-          <Text style = {styles.randombuttontext}>
-            {showInstructions ? 'Hide Instructions' : 'Show Instructions'}
-          </Text>
-          <MaterialIcons name="chevron-right" size={24} color={"#511414"}/>
-          </Pressable>
-          {showInstructions && (
-            <Animated.View
-            style={styles.ingredientContainer}
-            entering={FadeIn.duration(500)} // Sisääntuloefekti
-            layout={Layout}
-            >
-              <Text style={styles.text}>{instructions}</Text>
-            </Animated.View>
-          )}
-          </View>
-        </View>
-      ) : (
-        <FlatList
-          data={cocktails}
-          keyExtractor={(item) => item.idDrink}
-          ListHeaderComponent={
-            <View style={{ alignItems: 'center' }}>
-              <Text style={styles.header}>Search</Text>
-              <RadioButton.Group onValueChange={(value) => setSearchType(value)} value={searchType}>
-                <View>
-                  <TouchableOpacity
-                    style={styles.radioButtonRow}
-                    onPress={() => setSearchType('ingredient')}>
-                    <RadioButton value="ingredient" color='#F1E9DC'/>
-                    <Text style={styles.radioButtonText}>Search by ingredient</Text>
-                  </TouchableOpacity>
-                </View>
-                <View>
-                  <TouchableOpacity
-                    style={styles.radioButtonRow}
-                    onPress={() => setSearchType('name')}>
-                    <RadioButton value="name" color='#F1E9DC' />
-                    <Text style={styles.radioButtonText}>Search by name</Text>
-                  </TouchableOpacity>
-                </View>
-              </RadioButton.Group>
-              <TextInput
-                style={styles.textinput}
-                placeholder={`Search cocktails by ${searchType}`}
-                placeholderTextColor='grey'
-                value={query}
-                onChangeText={(text) => setQuery(text)}
-              />
-              <Pressable style={styles.button} onPress={searchCocktails}>
-                <Text style={{fontFamily: 'IMFell', fontSize: 18}}>Search</Text>
+      <View>
+        {selectedCocktail ? (
+            <ScrollView contentContainerStyle={[styles.randomcontainer]}>
+              <View style={{ alignSelf: 'flex-start'}}>
+              <Pressable onPress={goBack}>
+                <Text style={styles.back}>Back</Text>
               </Pressable>
-              {error && <Text style={styles.text}>{error}</Text>}
-            </View>
-          }
-          renderItem={({ item }) => <Card cocktail={item} onPress={CocktailData}></Card>}
-          style={{ width: '100%'}}
-        />
-      )}
-      <StatusBar style="auto" />
-    </View>
+              </View>
+              <View style={styles.container}>
+                <Text style={styles.header}>{name}</Text>
+                <Image source={{ uri: image }} style={styles.image} />
+                <Pressable
+                  style={[styles.randombutton]}
+                  onPress={() => setShowIngredients(!showIngredients)}>
+                  <Text style={styles.randombuttontext}>
+                    {showIngredients ? 'Hide Ingredients' : 'Show Ingredients'}
+                  </Text>
+                  <MaterialIcons name="chevron-right" size={24} color={"#511414"} />
+                </Pressable>
+                {showIngredients && (
+                  <Animated.View
+                    style={styles.ingredientContainer}
+                    entering={FadeIn.duration(500)} // Sisääntuloefekti
+                    layout={Layout}
+                  >
+                    {ingredients.map((ingredient, index) => (
+                      <View key={index} style={styles.ingredientRow}>
+                        <Text style={styles.ingredient}>
+                          {ingredient} - {measures[index] || ''}
+                        </Text>
+                      </View>
+                    ))}
+                  </Animated.View>
+                )}
+                <Pressable
+                  style={[styles.randombutton]}
+                  onPress={() => setShowInstructions(!showInstructions)}
+                >
+                  <Text style={styles.randombuttontext}>
+                    {showInstructions ? 'Hide Instructions' : 'Show Instructions'}
+                  </Text>
+                  <MaterialIcons name="chevron-right" size={24} color={"#511414"} />
+                </Pressable>
+                {showInstructions && (
+                  <Animated.View
+                    style={styles.ingredientContainer}
+                    entering={FadeIn.duration(500)} // Sisääntuloefekti
+                    layout={Layout}
+                  >
+                    <Text style={styles.text}>{instructions}</Text>
+                  </Animated.View>
+                )}
+              </View>
+            </ScrollView>
+        ) : (
+          <FlatList
+            data={cocktails}
+            keyExtractor={(item) => item.idDrink}
+            ListHeaderComponent={
+              <View style={{ alignItems: 'center' }}>
+                <Text style={styles.header}>Search</Text>
+                <RadioButton.Group onValueChange={(value) => setSearchType(value)} value={searchType}>
+                  <View>
+                    <TouchableOpacity
+                      style={styles.radioButtonRow}
+                      onPress={() => setSearchType('ingredient')}>
+                      <RadioButton value="ingredient" />
+                      <Text style={styles.radioButtonText}>Search by ingredient</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View>
+                    <TouchableOpacity
+                      style={styles.radioButtonRow}
+                      onPress={() => setSearchType('name')}>
+                      <RadioButton value="name" />
+                      <Text style={styles.radioButtonText}>Search by name</Text>
+                    </TouchableOpacity>
+                  </View>
+                </RadioButton.Group>
+                <TextInput
+                  style={styles.textinput}
+                  placeholder={`Search cocktails by ${searchType}`}
+                  value={query}
+                  onChangeText={(text) => setQuery(text)}
+                />
+                <Pressable style={styles.button} onPress={searchCocktails}>
+                  <Text>Search</Text>
+                </Pressable>
+                {error && <Text>{error}</Text>}
+              </View>
+            }
+            renderItem={({ item }) => <Card cocktail={item} onPress={CocktailData}></Card>}
+            style={{ width: '100%' }}
+          />
+        )}
+      </View>
     </LinearGradient>
   );
 }
