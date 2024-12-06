@@ -59,6 +59,8 @@ export default function App() {
 
   const [loaded] = useFonts({
     IMFell: require('./assets/fonts/IMFellDWPicaSC-Regular.ttf'),
+    CormorantBold: require('./assets/fonts/CormorantUpright-Bold.ttf'),
+    CormorantMedium: require('./assets/fonts/CormorantUpright-Medium.ttf'),
   });
 
   if (!loaded){

@@ -19,9 +19,10 @@ export default StyleSheet.create({
         marginBottom: Constants.statusBarHeight + 5,
     },
     text: {
+        fontFamily: 'CormorantMedium',
         color: '#F1E9DC',
         fontWeight: 'thin',
-        fontSize: 16,
+        fontSize: 20,
         textAlign: 'center',
     },
     textinput: {
@@ -63,7 +64,8 @@ export default StyleSheet.create({
         marginVertical: 5,
     },
     ingredient: {
-        fontSize: 16,
+        fontFamily: 'CormorantMedium',
+        fontSize: 20,
         flex: 1,
         textAlign: 'left',
         color: '#F1E9DC',
@@ -100,6 +102,8 @@ export default StyleSheet.create({
         color: 'white'
     },
     radioButtonText: {
+        fontFamily: 'CormorantMedium',
+        fontSize: 20,
         textAlignVertical: "center",
         color: '#F1E9DC',
     },
@@ -118,18 +122,19 @@ export default StyleSheet.create({
     homeimage: {
         width: 400,
         height: 400,
-        margin: 0,
+        margin: -15,
     },
     homeheading: {
-        fontFamily: '',
+        fontFamily: 'CormorantMedium',
         fontWeight: '600',
-        fontSize: 20,
+        fontSize: 25,
         color: '#F1E9DC',
     },
     hometext: {
+        fontFamily: 'CormorantMedium',
         color: '#F1E9DC',
         fontWeight: 400,
-        fontSize: 20,
+        fontSize: 21,
         textAlign: 'justify',
         marginTop: 15,
         width: 250,
@@ -153,7 +158,7 @@ export default StyleSheet.create({
     homebuttontext: {
         fontFamily:'IMFell',
         color: '#F1E9DC',
-        fontSize: 20,
+        fontSize: 21,
     },
     card: {
         backgroundColor: '#ffff',
@@ -172,9 +177,9 @@ export default StyleSheet.create({
         resizeMode: 'cover',
     },
     cardTitle: {
+        fontFamily: 'CormorantBold',
         padding: 10,
-        fontSize: 18,
-        fontWeight: 'bold',
+        fontSize: 19,
         textAlign: 'center',
         color: '#F1E9DC',
         backgroundColor: '#2e0002',
@@ -245,6 +250,12 @@ export default StyleSheet.create({
         borderRadius: 10,
         marginBottom: 20,
     },
+    //Search.js tyylit
+    searchButtontext: {
+        fontFamily:'IMFell',
+        color: '#511414',
+        fontSize: 21,
+    },    
     // Profile.js tyylit
     backButton: {
         position: 'absolute',
@@ -253,8 +264,8 @@ export default StyleSheet.create({
         padding: 10,
         backgroundColor: 'transparent',
         borderRadius: 50,
-      },
-      buttonDelete: {
+    },
+    buttonDelete: {
         margin: 10,
         flexDirection: "row",
         padding: 10,

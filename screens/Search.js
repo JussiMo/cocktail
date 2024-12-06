@@ -197,11 +197,12 @@ export default function Search() {
                 <TextInput
                   style={styles.textinput}
                   placeholder={`Search cocktails by ${searchType}`}
+                  placeholderTextColor="#662929"
                   value={query}
                   onChangeText={(text) => setQuery(text)}
                 />
                 <Pressable style={styles.button} onPress={searchCocktails}>
-                  <Text>Search</Text>
+                  <Text style={styles.searchButtontext}>Search</Text>
                 </Pressable>
                 {error && <Text>{error}</Text>}
               </View>
