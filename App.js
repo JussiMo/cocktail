@@ -12,6 +12,7 @@ import Profile from './screens/Profile';
 import Login from './screens/Login';
 import Register from './screens/Register';
 import { StatusBar } from 'expo-status-bar';
+import Toast from 'react-native-toast-message';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -76,6 +77,7 @@ export default function App() {
         <Stack.Screen name="Random" component={Random} />
       </Stack.Navigator>
       <StatusBar style="light" />
+      <Toast/>
     </NavigationContainer>
   );
 }
