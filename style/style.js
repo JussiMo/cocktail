@@ -85,6 +85,7 @@ export default StyleSheet.create({
     label: {
         fontSize: 20,
         margin: 5,
+        color: '#F1E9DC',
     },
     back: {
         fontSize: 20,
@@ -274,5 +275,14 @@ export default StyleSheet.create({
         borderRadius: 15,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    labelProfile: {
+        fontSize: 20,
+        margin: 5,
+        color: '#F1E9DC',
+    },
+    drinksListContainer: {
+        flex: 1,
+        width: '100%',
     },
 });

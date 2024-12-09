@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Text, View, Pressable, Button, TextInput, Alert, ScrollView } from 'react-native';
+import { Text, View, Pressable, Button, TextInput, Alert, ScrollView, FlatList, Image } from 'react-native';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth, db, USERS_REF } from '../firebase/Config';
+import { auth, db, USERS_REF, DRINKS_REF } from '../firebase/Config';
 import { changePassword, logout, removeUser } from '../components/Auth';
-import { collection, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
 import { MaterialIcons } from '@expo/vector-icons';
+import Animated, { FadeIn, Layout } from 'react-native-reanimated';
 import styles from '../style/style';
+
 
 export default function Profile({ navigation }) {
 
@@ -16,6 +18,9 @@ export default function Profile({ navigation }) {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [confirmDelete, setConfirmDelete] = useState('');
   const [showSettings, setShowSettings] = useState(false);
+  const [showDrinks, setShowDrinks] = useState(false);
+  const [drinksList, setDrinksList] = useState([]);
+  const [selectedDrink, setSelectedDrink] = useState(null);
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
@@ -90,6 +95,53 @@ export default function Profile({ navigation }) {
     setShowSettings(!showSettings);
   }
 
+  const fetchDrinksList = async () => {
+    try {
+      const userId = auth.currentUser.uid;
+      const drinksRef = collection(db, 'users', userId, 'drinks');
+      const querySnapshot = await getDocs(drinksRef);
+      const drinks = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      console.log('Drinks fetched:', drinks);
+      setDrinksList(drinks);
+    } catch (error) {
+      console.log('Error fetching drinks:', error);
+      Alert.alert('Failed to fetch drinks. Please try again later.');
+    }
+  }
+  
+
+  const toggleDrinksList = () => {
+    if (!showDrinks) {
+      fetchDrinksList();
+    }
+    setShowDrinks(!showDrinks);
+  }
+
+  const fetchDrinkDetails = async (drinkId) => {
+    try {
+      console.log('Fetching drink details for drinkId:', drinkId);
+      const response = await fetch(
+        `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkId}`
+      );
+      const data = await response.json();
+      
+      if (data.drinks && data.drinks.length > 0) {
+        setSelectedDrink(data.drinks[0]);
+      } else {
+        Alert.alert('Failed to fetch drink details.');
+      }
+    } catch (error) {
+      console.error('Error fetching drink details:', error);
+    }
+  }
+
+  const closeDrinkDetails = () => {
+    setSelectedDrink(null);
+  }
+
   if (!isLoggedIn) {
     return (
       <ScrollView>
@@ -110,68 +162,115 @@ export default function Profile({ navigation }) {
   }
   else {
     return (
-      <ScrollView>
-        <View style={styles.container}>
-          <View style={styles.headerItem}>
-            <Text style={styles.header}>Profile</Text>
-          <Text style={styles.label}>Logged in as: {nickname}</Text>
-            <Pressable style={styles.logout} onPress={handlePressLogout}>
-              <Text style={styles.logout}>Logout </Text>
-              <MaterialIcons name="logout" size={24} color="red" />
+      <FlatList
+        data={showDrinks ? drinksList : []}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <Pressable
+            style={styles.drinkItem}
+            onPress={() => fetchDrinkDetails(item.id)}
+          >
+            <Text style={styles.drinkName}>{item.name}</Text>
+          </Pressable>
+        )}
+        ListHeaderComponent={
+          <View style={styles.container}>
+            <View style={styles.headerItem}>
+              <Text style={styles.header}>Profile</Text>
+              <Text style={styles.labelProfile}>Logged in as: {nickname}</Text>
+              <Pressable style={styles.logout} onPress={handlePressLogout}>
+                <Text style={styles.logout}>Logout </Text>
+                <MaterialIcons name="logout" size={24} color="red" />
+              </Pressable>
+            </View>
+            <Pressable style={styles.button} onPress={toggleDrinksList}>
+              <Text>{showDrinks ? 'HIDE FAVORITES' : 'SHOW FAVORITES'}</Text>
             </Pressable>
+            {selectedDrink && (
+              <Animated.View
+                style={styles.drinkDetailsContainer}
+                entering={FadeIn.duration(500)}
+                layout={Layout}
+              >
+                <Pressable onPress={closeDrinkDetails}>
+                  <Text style={styles.backButton}>Back</Text>
+                </Pressable>
+                <Text style={styles.header}>{selectedDrink.strDrink}</Text>
+                <Image
+                  source={{ uri: selectedDrink.strDrinkThumb }}
+                  style={styles.drinkImage}
+                />
+                <Text style={styles.instructions}>
+                  {selectedDrink.strInstructions}
+                </Text>
+              </Animated.View>
+            )}
+            <Pressable style={styles.button}>
+              <Text style={styles.link} onPress={handlePressSettings}>
+                SETTINGS
+              </Text>
+            </Pressable>
+            {showSettings && (
+              <>
+                <Text style={styles.labelProfile}>Change your Nickname</Text>
+                <TextInput
+                  value={nickname}
+                  style={styles.textinput}
+                  onChangeText={setNickname}
+                />
+                <Pressable
+                  style={styles.button}
+                  title="Update"
+                  onPress={updateUserData}
+                >
+                  <Text>UPDATE</Text>
+                </Pressable>
+                <Text style={styles.labelProfile}>Change your password</Text>
+                <TextInput
+                  style={styles.textinput}
+                  placeholder="Enter your new password*"
+                  value={password}
+                  onChangeText={(password) => setPassword(password)}
+                  secureTextEntry
+                />
+                <TextInput
+                  style={styles.textinput}
+                  placeholder="Confirm your new password*"
+                  value={confirmPassword}
+                  onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
+                  secureTextEntry
+                />
+                <Pressable
+                  style={styles.button}
+                  title="Change password"
+                  onPress={handlePressChangePw}
+                >
+                  <Text>CHANGE PASSWORD</Text>
+                </Pressable>
+                <Text style={styles.labelProfile}>Delete account</Text>
+                <TextInput
+                  style={styles.textinput}
+                  placeholder="Type DELETE here to confirm"
+                  value={confirmDelete}
+                  onChangeText={(confirmDelete) => setConfirmDelete(confirmDelete)}
+                  autoCapitalize="characters"
+                />
+                <View
+                  style={styles.buttonDelete}
+                  title="Delete account"
+                  color="red"
+                  onPress={handlePressDelete}
+                >
+                  <Text>DELETE ACCOUNT</Text>
+                </View>
+                <Text style={styles.infoText}>
+                  Your data will be removed from the database!
+                </Text>
+              </>
+            )}
           </View>
-          <Pressable style={styles.button}>
-          <Text
-            style={styles.link}
-            onPress={handlePressSettings}>SETTINGS</Text>
-        </Pressable>
-          {showSettings &&
-          <>
-          <Text style={styles.header}>Change your Nickname</Text>
-          <TextInput
-            value={nickname}
-            style={styles.textinput}
-            onChangeText={setNickname}
-          />
-          <Pressable style={styles.button} title="Update" onPress={() => updateUserData()}>
-            <Text>UPDATE</Text>
-          </Pressable>
-          <Text style={styles.header}>Change your password</Text>
-          <TextInput
-            style={styles.textinput}
-            placeholder="Enter your new password*"
-            value={password}
-            onChangeText={(password) => setPassword(password)}
-            secureTextEntry={true}
-          />
-          <TextInput
-            style={styles.textinput}
-            placeholder="Confirm your new password*"
-            value={confirmPassword}
-            onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
-            secureTextEntry={true}
-          />
-          <Pressable style={styles.button} title="Change password" onPress={handlePressChangePw}>
-            <Text>CHANGE PASSWORD</Text>
-          </Pressable>
-          <Text style={styles.header}>Delete account</Text>
-          <TextInput
-            style={styles.textinput}
-            placeholder="Type DELETE here to confirm"
-            value={confirmDelete}
-            onChangeText={(confirmDelete) => setConfirmDelete(confirmDelete)}
-            autoCapitalize="characters"
-          />
-          <View style={styles.buttonDelete} title="Delete account" color="red" onPress={() => handlePressDelete()}>
-            <Text>DELETE ACCOUNT</Text>
-          </View>
-          <Text style={styles.infoText}>
-            Your data will be removed from the database!
-          </Text>
-          </>
         }
-        </View>
-      </ScrollView>
+      />
     );
   }
-}
+}    
