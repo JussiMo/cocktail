@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, Button, Pressable, Image, ScrollView } from 'react-native'
+import { View, Text, Button, Pressable, Image, ScrollView, Alert } from 'react-native'
 import { collection, addDoc } from 'firebase/firestore'
 import { db, USERS_REF, DRINKS_REF } from '../firebase/Config'
 import { auth } from '../firebase/Config'
 import Animated, { FadeIn, FadeOut, FadeOutUp, Layout } from 'react-native-reanimated';
+import Toast from 'react-native-toast-message'
 import { MaterialIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import styles from '../style/style'
@@ -59,12 +60,20 @@ const Random = () => {
       return
     }
     if (!auth.currentUser) {
+      Toast.show({
+        type: 'error',
+        text1: 'You need log in',
+      })
       console.error("User is not authenticated")
       return
     }
     try {
       const docRef = collection(db, USERS_REF, auth.currentUser.uid, DRINKS_REF )
       const newDoc = await addDoc(docRef,{id: drinkIdNumber})
+      Toast.show({
+        type: 'success',
+        text1: 'Drink Saved!'   
+      })
       console.log('Drink ID saved: ', newDoc.id)
     } catch (error) {
       console.error(error)
