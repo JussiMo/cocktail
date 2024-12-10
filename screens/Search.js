@@ -6,6 +6,10 @@ import { RadioButton, Card } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialIcons } from '@expo/vector-icons';
 import Animated, { FadeIn, FadeOut, FadeOutUp, Layout } from 'react-native-reanimated';
+import { addDoc, collection } from 'firebase/firestore';
+import { db, USERS_REF, DRINKS_REF } from '../firebase/Config'
+import { auth } from '../firebase/Config'
+import Toast from 'react-native-toast-message'
 
 
 
@@ -25,6 +29,7 @@ export default function Search() {
   const [query, setQuery] = useState('')
   const [showIngredients, setShowIngredients] = useState(false)
   const [showInstructions, setShowInstructions] = useState(false)
+  const [drinkId, setDrinkId] = useState ()
 
   const searchCocktails = async () => {
     setError(null)
@@ -71,6 +76,7 @@ export default function Search() {
         setName(drink.strDrink)
         setImage(drink.strDrinkThumb)
         setInstructions(drink.strInstructions)
+        setDrinkId(drink.idDrink)
 
         const ingredientList = Object.keys(drink)
           .filter(key => key.startsWith("strIngredient"))
@@ -107,8 +113,36 @@ export default function Search() {
         <Image source={{ uri: cocktail.strDrinkThumb }} style={styles.cardImage} />
         <Text style={styles.cardTitle}>{cocktail.strDrink}</Text>
       </TouchableOpacity>
-    );
-  };
+    )
+  }
+
+  const saveDrink = async (drinkId) => {
+
+    const drinkIdNumber = Number(drinkId)
+    if (isNaN(drinkIdNumber)) {
+      console.error("Invalid drinkId: must be a valid number")
+      return
+    }
+    if (!auth.currentUser) {
+      Toast.show({
+        type: 'error',
+        text1: 'You need log in',
+      })
+      console.error("User is not authenticated")
+      return
+    }
+    try {
+      const docRef = collection(db, USERS_REF, auth.currentUser.uid, DRINKS_REF)
+      const newDoc = await addDoc(docRef, { id: drinkIdNumber })
+      Toast.show({
+        type: 'success',
+        text1: 'Drink Saved!'
+      })
+      console.log('Drink ID saved: ', newDoc.id)
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <LinearGradient
@@ -117,58 +151,61 @@ export default function Search() {
     >
       <View>
         {selectedCocktail ? (
-            <ScrollView contentContainerStyle={[styles.randomcontainer]}>
-              <View style={{ alignSelf: 'flex-start'}}>
+          <ScrollView contentContainerStyle={[styles.randomcontainer]}>
+            <View style={{ alignSelf: 'flex-start' }}>
               <Pressable onPress={goBack}>
                 <Text style={styles.back}>Back</Text>
               </Pressable>
-              </View>
-              <View style={styles.container}>
-                <Text style={styles.header}>{name}</Text>
-                <Image source={{ uri: image }} style={styles.image} />
-                <Pressable
-                  style={[styles.randombutton]}
-                  onPress={() => setShowIngredients(!showIngredients)}>
-                  <Text style={styles.randombuttontext}>
-                    {showIngredients ? 'Hide Ingredients' : 'Show Ingredients'}
-                  </Text>
-                  <MaterialIcons name="chevron-right" size={24} color={"#511414"} />
-                </Pressable>
-                {showIngredients && (
-                  <Animated.View
-                    style={styles.ingredientContainer}
-                    entering={FadeIn.duration(500)} // Sisääntuloefekti
-                    layout={Layout}
-                  >
-                    {ingredients.map((ingredient, index) => (
-                      <View key={index} style={styles.ingredientRow}>
-                        <Text style={styles.ingredient}>
-                          {ingredient} - {measures[index] || ''}
-                        </Text>
-                      </View>
-                    ))}
-                  </Animated.View>
-                )}
-                <Pressable
-                  style={[styles.randombutton]}
-                  onPress={() => setShowInstructions(!showInstructions)}
+            </View>
+            <View style={styles.container}>
+              <Text style={styles.header}>{name}</Text>
+              <Image source={{ uri: image }} style={styles.image} />
+              <Pressable
+                style={[styles.randombutton]}
+                onPress={() => setShowIngredients(!showIngredients)}>
+                <Text style={styles.randombuttontext}>
+                  {showIngredients ? 'Hide Ingredients' : 'Show Ingredients'}
+                </Text>
+                <MaterialIcons name="chevron-right" size={24} color={"#511414"} />
+              </Pressable>
+              {showIngredients && (
+                <Animated.View
+                  style={styles.ingredientContainer}
+                  entering={FadeIn.duration(500)} // Sisääntuloefekti
+                  layout={Layout}
                 >
-                  <Text style={styles.randombuttontext}>
-                    {showInstructions ? 'Hide Instructions' : 'Show Instructions'}
-                  </Text>
-                  <MaterialIcons name="chevron-right" size={24} color={"#511414"} />
-                </Pressable>
-                {showInstructions && (
-                  <Animated.View
-                    style={styles.ingredientContainer}
-                    entering={FadeIn.duration(500)} // Sisääntuloefekti
-                    layout={Layout}
-                  >
-                    <Text style={styles.text}>{instructions}</Text>
-                  </Animated.View>
-                )}
-              </View>
-            </ScrollView>
+                  {ingredients.map((ingredient, index) => (
+                    <View key={index} style={styles.ingredientRow}>
+                      <Text style={styles.ingredient}>
+                        {ingredient} - {measures[index] || ''}
+                      </Text>
+                    </View>
+                  ))}
+                </Animated.View>
+              )}
+              <Pressable
+                style={[styles.randombutton]}
+                onPress={() => setShowInstructions(!showInstructions)}
+              >
+                <Text style={styles.randombuttontext}>
+                  {showInstructions ? 'Hide Instructions' : 'Show Instructions'}
+                </Text>
+                <MaterialIcons name="chevron-right" size={24} color={"#511414"} />
+              </Pressable>
+              {showInstructions && (
+                <Animated.View
+                  style={styles.ingredientContainer}
+                  entering={FadeIn.duration(500)} // Sisääntuloefekti
+                  layout={Layout}
+                >
+                  <Text style={styles.text}>{instructions}</Text>
+                </Animated.View>
+              )}
+              <Pressable style={styles.randombuttonpieni} onPress={() => saveDrink(drinkId)}>
+                <Text style={styles.randombuttontextpieni}>Save drink</Text>
+              </Pressable>
+            </View>
+          </ScrollView>
         ) : (
           <FlatList
             data={cocktails}
