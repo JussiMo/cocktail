@@ -225,7 +225,7 @@ export default function Search() {
                     <TouchableOpacity
                       style={styles.radioButtonRow}
                       onPress={() => setSearchType('ingredient')}>
-                      <RadioButton value="ingredient" />
+                      <RadioButton value="ingredient" color="#F1E9DC" />
                       <Text style={styles.radioButtonText}>Search by ingredient</Text>
                     </TouchableOpacity>
                   </View>
@@ -233,7 +233,7 @@ export default function Search() {
                     <TouchableOpacity
                       style={styles.radioButtonRow}
                       onPress={() => setSearchType('name')}>
-                      <RadioButton value="name" />
+                      <RadioButton  value="name" color="#F1E9DC" />
                       <Text style={styles.radioButtonText}>Search by name</Text>
                     </TouchableOpacity>
                   </View>
