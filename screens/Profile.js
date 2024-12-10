@@ -7,6 +7,7 @@ import { collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore'
 import { MaterialIcons } from '@expo/vector-icons';
 import Animated, { FadeIn, Layout } from 'react-native-reanimated';
 import styles from '../style/style';
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 export default function Profile({ navigation }) {
@@ -144,6 +145,10 @@ export default function Profile({ navigation }) {
 
   if (!isLoggedIn) {
     return (
+      <LinearGradient
+      colors={['#2c0305', '#511414',]} // Gradient colors 
+      style={[styles.gradient]}
+    >
       <ScrollView>
         <View style={styles.container}>
           <View style={styles.headerItem}>
@@ -158,10 +163,15 @@ export default function Profile({ navigation }) {
           </Pressable>
         </View>
       </ScrollView>
+      </LinearGradient>
     )
   }
   else {
     return (
+      <LinearGradient
+      colors={['#2c0305', '#511414',]} // Gradient colors 
+      style={[styles.gradient]}
+    >
       <FlatList
         data={showDrinks ? drinksList : []}
         keyExtractor={(item) => item.id.toString()}
@@ -271,6 +281,7 @@ export default function Profile({ navigation }) {
           </View>
         }
       />
+      </LinearGradient>
     );
   }
 }    

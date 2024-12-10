@@ -5,6 +5,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase/Config';
 import { MaterialIcons } from '@expo/vector-icons';
 import styles from '../style/style';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function Register({ navigation }) {
 
@@ -62,6 +63,10 @@ export default function Register({ navigation }) {
   
   if (isLoggedIn) {
     return(
+      <LinearGradient
+      colors={['#2c0305', '#511414',]} // Gradient colors 
+      style={[styles.gradient]}
+    >
       <View style={styles.container}>
         <View style={styles.headerItem}>
         <Pressable onPress={goBack} style={styles.backButton}>
@@ -90,10 +95,15 @@ export default function Register({ navigation }) {
             onPress={() => navigation.navigate('Profile')} />
         </Pressable>
       </View>
+      </LinearGradient>
     )
   }
   else {
     return (
+      <LinearGradient
+      colors={['#2c0305', '#511414',]} // Gradient colors 
+      style={[styles.gradient]}
+    >
       <View style={styles.container}>
              <Pressable onPress={goBack} style={styles.backButton}>
          <MaterialIcons name="keyboard-backspace" size={40} color="black" />
@@ -138,6 +148,7 @@ export default function Register({ navigation }) {
           <Text>LOGIN</Text>
         </Pressable>
       </View>
+      </LinearGradient>
     );
   }
 }
