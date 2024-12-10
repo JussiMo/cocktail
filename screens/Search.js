@@ -1,12 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { FlatList, Image, Keyboard, Pressable, ScrollView, Text, TextInput, Touchable, TouchableOpacity, View } from 'react-native';
+import { addDoc, collection, getDocs, where, query } from 'firebase/firestore';
 import styles from '../style/style';
 import { RadioButton, Card } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialIcons } from '@expo/vector-icons';
 import Animated, { FadeIn, FadeOut, FadeOutUp, Layout } from 'react-native-reanimated';
-import { addDoc, collection } from 'firebase/firestore';
 import { db, USERS_REF, DRINKS_REF } from '../firebase/Config'
 import { auth } from '../firebase/Config'
 import Toast from 'react-native-toast-message'
@@ -26,7 +26,7 @@ export default function Search() {
   const [instructions, setInstructions] = useState('')
   const [measures, setMeasures] = useState([])
   const [searchType, setSearchType] = useState("ingredient")
-  const [query, setQuery] = useState('')
+  const [querySearch, setQuerySearch] = useState('')
   const [showIngredients, setShowIngredients] = useState(false)
   const [showInstructions, setShowInstructions] = useState(false)
   const [drinkId, setDrinkId] = useState ()
@@ -35,9 +35,9 @@ export default function Search() {
     setError(null)
     let URL = ''
     if (searchType === "ingredient") {
-      URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${query}`
+      URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${querySearch}`
     } else {
-      URL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`
+      URL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${querySearch}`
     }
 
     try {
@@ -119,20 +119,27 @@ export default function Search() {
   const saveDrink = async (drinkId) => {
 
     const drinkIdNumber = Number(drinkId)
-    if (isNaN(drinkIdNumber)) {
-      console.error("Invalid drinkId: must be a valid number")
-      return
-    }
+
     if (!auth.currentUser) {
       Toast.show({
         type: 'error',
         text1: 'You need log in',
       })
-      console.error("User is not authenticated")
+      console.error('User is not logged in')
       return
     }
     try {
       const docRef = collection(db, USERS_REF, auth.currentUser.uid, DRINKS_REF)
+      const drinkQuery = query(docRef, where('id', '==', drinkIdNumber))
+      const querySnapshot = await getDocs(drinkQuery)
+
+      if (!querySnapshot.empty) {
+        Toast.show({
+          type: 'info',
+          text1: 'This drink is already saved',
+        })
+        return
+      }
       const newDoc = await addDoc(docRef, { id: drinkIdNumber })
       Toast.show({
         type: 'success',
@@ -235,8 +242,8 @@ export default function Search() {
                   style={styles.textinput}
                   placeholder={`Search cocktails by ${searchType}`}
                   placeholderTextColor="#662929"
-                  value={query}
-                  onChangeText={(text) => setQuery(text)}
+                  value={querySearch}
+                  onChangeText={(text) => setQuerySearch(text)}
                 />
                 <Pressable style={styles.button} onPress={searchCocktails}>
                   <Text style={styles.searchButtontext}>Search</Text>
