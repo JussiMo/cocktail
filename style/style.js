@@ -94,7 +94,6 @@ export default StyleSheet.create({
         borderColor: '#F1E9DC',
         borderWidth: 1,
         borderRadius: 10,
-        maxWidth: '22%',
         paddingHorizontal: 10,
         paddingVertical: 5,
         marginTop: Constants.statusBarHeight + 20,
