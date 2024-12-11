@@ -111,16 +111,18 @@ export default function Register({ navigation }) {
         <View style={styles.headerItem}>
           <Text style={styles.header}>Register</Text>
         </View>
-        <Text style={styles.infoText}>Create an account</Text>
+        <Text style={styles.registerText}>Create an account</Text>
         <TextInput
           style={styles.textinput}
           placeholder="Nickname*"
+          placeholderTextColor="#805252"
           value={nickname}
           onChangeText={(nickname) => setNickname(nickname.trim())}
         />
         <TextInput
           style={styles.textinput}
           placeholder="Enter your email*"
+          placeholderTextColor="#805252"
           value={email}
           onChangeText={(email) => setEmail(email.trim())}
           keyboardType="email-address"
@@ -129,6 +131,7 @@ export default function Register({ navigation }) {
         <TextInput
           style={styles.textinput}
           placeholder="Enter your password*"
+          placeholderTextColor="#805252"
           value={password}
           onChangeText={(password) => setPassword(password)}
           secureTextEntry={true}
@@ -136,16 +139,17 @@ export default function Register({ navigation }) {
         <TextInput
           style={styles.textinput}
           placeholder="Confirm password*"
+          placeholderTextColor="#805252"
           value={confirmPassword}
           onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
           secureTextEntry={true}
         />
         <Pressable style={styles.button} title="Register" onPress={handlePressRegister}>
-          <Text>REGISTER</Text>
+          <Text style={styles.registerButtonText} >REGISTER</Text>
         </Pressable>
           <Text style={styles.infoText}>Already have an account?</Text>
         <Pressable style={styles.button} title="Login" onPress={() => navigation.navigate('Login')}>
-          <Text>LOGIN</Text>
+          <Text style={styles.registerButtonText} >LOGIN</Text>
         </Pressable>
       </View>
       </LinearGradient>

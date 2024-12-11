@@ -154,12 +154,12 @@ export default function Profile({ navigation }) {
           <View style={styles.headerItem}>
             <Text style={styles.header}>Profile</Text>
           </View>
-          <Pressable style={styles.button} onPress={() => navigation.navigate('Login')}>
-            <Text title="Login">LOGIN</Text>
+          <Pressable style={styles.profileButton} onPress={() => navigation.navigate('Login')}>
+            <Text style={styles.profileButtonText} title="Login">LOGIN</Text>
           </Pressable>
-          <Text style={styles.infoText}>Dont have a profile yet?</Text>
-          <Pressable style={styles.button} onPress={() => navigation.navigate('Register')}>
-            <Text title="Register">REGISTER</Text>
+          <Text style={styles.profileText}>Dont have a profile yet?</Text>
+          <Pressable style={styles.profileButton} onPress={() => navigation.navigate('Register')}>
+            <Text style={styles.profileButtonText} title="Register">REGISTER</Text>
           </Pressable>
         </View>
       </ScrollView>
@@ -193,8 +193,8 @@ export default function Profile({ navigation }) {
                 <MaterialIcons name="logout" size={24} color="red" />
               </Pressable>
             </View>
-            <Pressable style={styles.button} onPress={toggleDrinksList}>
-              <Text>{showDrinks ? 'HIDE FAVORITES' : 'SHOW FAVORITES'}</Text>
+            <Pressable style={styles.profileButton} onPress={toggleDrinksList}>
+              <Text style={styles.profileButtonText} >{showDrinks ? 'HIDE FAVORITES' : 'SHOW FAVORITES'}</Text>
             </Pressable>
             {selectedDrink && (
               <Animated.View
@@ -216,7 +216,7 @@ export default function Profile({ navigation }) {
               </Animated.View>
             )}
             <Pressable style={styles.button}>
-              <Text style={styles.link} onPress={handlePressSettings}>
+              <Text style={styles.profileButtonText} onPress={handlePressSettings}>
                 SETTINGS
               </Text>
             </Pressable>
@@ -233,12 +233,13 @@ export default function Profile({ navigation }) {
                   title="Update"
                   onPress={updateUserData}
                 >
-                  <Text>UPDATE</Text>
+                  <Text style={styles.profileButtonText} >UPDATE</Text>
                 </Pressable>
                 <Text style={styles.labelProfile}>Change your password</Text>
                 <TextInput
                   style={styles.textinput}
                   placeholder="Enter your new password*"
+                  placeholderTextColor="#805252"
                   value={password}
                   onChangeText={(password) => setPassword(password)}
                   secureTextEntry
@@ -246,21 +247,23 @@ export default function Profile({ navigation }) {
                 <TextInput
                   style={styles.textinput}
                   placeholder="Confirm your new password*"
+                  placeholderTextColor="#805252"
                   value={confirmPassword}
                   onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
                   secureTextEntry
                 />
                 <Pressable
-                  style={styles.button}
+                  style={styles.profileButton}
                   title="Change password"
                   onPress={handlePressChangePw}
                 >
-                  <Text>CHANGE PASSWORD</Text>
+                  <Text style={styles.profileButtonText} >CHANGE PASSWORD</Text>
                 </Pressable>
                 <Text style={styles.labelProfile}>Delete account</Text>
                 <TextInput
                   style={styles.textinput}
                   placeholder="Type DELETE here to confirm"
+                  placeholderTextColor="#805252"
                   value={confirmDelete}
                   onChangeText={(confirmDelete) => setConfirmDelete(confirmDelete)}
                   autoCapitalize="characters"
@@ -271,7 +274,7 @@ export default function Profile({ navigation }) {
                   color="red"
                   onPress={handlePressDelete}
                 >
-                  <Text>DELETE ACCOUNT</Text>
+                  <Text style={styles.deleteButtonText} >DELETE ACCOUNT</Text>
                 </View>
                 <Text style={styles.infoText}>
                   Your data will be removed from the database!

@@ -76,11 +76,13 @@ export default StyleSheet.create({
         textAlign: 'right',
     },
     logout: {
+        fontFamily: 'CormorantMedium',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        fontSize: 24,
+        fontSize: 25,
         color: 'red',
+        margin: 5 ,
     },
     label: {
         fontSize: 20,
@@ -275,8 +277,38 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    labelProfile: {
+    profileButton: {
+        margin: 10,
+        flexDirection: "row",
+        padding: 10,
+        backgroundColor: '#FFF1E6',
+        width: 105,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        shadowColor: '#511414',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        elevation: 5,
+    },    
+    profileButtonText: {
+        fontFamily:'IMFell',
+        color: '#511414',
+        fontSize: 15,
+        textAlign: 'center',
+    },
+    profileText: {
+        marginBottom: 5,
+        marginTop: 20,
+        fontFamily: 'CormorantMedium',
+        color: '#F1E9DC',
         fontSize: 20,
+        textAlign: 'center',
+    },    
+    labelProfile: {
+        fontFamily: 'CormorantMedium',
+        fontSize: 22,
         margin: 5,
         color: '#F1E9DC',
     },
@@ -284,4 +316,46 @@ export default StyleSheet.create({
         flex: 1,
         width: '100%',
     },
+    infoText: {
+        fontFamily: 'CormorantMedium',
+        color: '#F1E9DC',
+        fontSize: 15,
+        textAlign: 'center',   
+    },
+    deleteButtonText: {
+        fontFamily:'IMFell',
+        color: '#F1E9DC',
+        fontSize: 15,
+        textAlign: 'center',
+    }, 
+    //Login.js tyylit
+    loginButtonText: {
+        fontFamily:'IMFell',
+        color: '#511414',
+        fontSize: 15,
+        textAlign: 'center',   
+    },
+    resetButtonText: {
+        fontFamily:'IMFell',
+        color: '#511414',
+        fontSize: 15,
+        textAlign: 'center',
+        width: 100,   
+    },
+    //Register.js tyylit
+    registerText: {
+        marginBottom: 10,
+        fontFamily: 'CormorantMedium',
+        color: '#F1E9DC',
+        fontSize: 20,
+        textAlign: 'center',
+    },
+    registerButtonText: {
+        fontFamily:'IMFell',
+        color: '#511414',
+        fontSize: 15,
+        textAlign: 'center',   
+    },
+
+
 });

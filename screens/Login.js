@@ -111,6 +111,7 @@ export default function Login({ navigation }) {
         <TextInput
           style={styles.textinput}
           placeholder="Enter your email*"
+          placeholderTextColor="#805252"
           value={email}
           onChangeText={(email) => setEmail(email)}
           keyboardType="email-address"
@@ -119,20 +120,21 @@ export default function Login({ navigation }) {
         <TextInput
           style={styles.textinput}
           placeholder="Enter your password*"
+          placeholderTextColor="#805252"
           value={password}
           onChangeText={(password) => setPassword(password)}
           secureTextEntry={true}
         />
         <Pressable style={styles.button} title="Login" onPress={handlePressLogin}>
-          <Text>LOGIN</Text>
+          <Text style={styles.loginButtonText} >LOGIN</Text>
         </Pressable>
         <Text style={styles.infoText}>Dont have a profile yet?</Text>
         <Pressable style={styles.button} title="Register" onPress={() => navigation.navigate('Register')}>
-          <Text>REGISTER</Text>
+          <Text style={styles.loginButtonText}>REGISTER</Text>
         </Pressable>
         <Pressable style={styles.button}>
           <Text
-            style={styles.link}
+            style={styles.loginButtonText}
             onPress={handlePressForgotPw}>Forgot password</Text>
         </Pressable>
         {showForgotPw &&
@@ -140,13 +142,14 @@ export default function Login({ navigation }) {
             <TextInput
               style={styles.textinput}
               placeholder="Enter your email*"
+              placeholderTextColor="#805252"
               value={emailForgotPw}
               onChangeText={(emailForgotPw) => setEmailForgotPw(emailForgotPw)}
               keyboardType="email-address"
               autoCapitalize="none"
             />
             <Pressable style={styles.button} title="Reset password" onPress={() => handlePressResetPw()}>
-              <Text>RESET PASSWORD</Text>
+              <Text style={styles.resetButtonText} >RESET PASSWORD</Text>
             </Pressable>
             <Text style={styles.infoText}>
               Be sure to check your spam folder after resetting!
