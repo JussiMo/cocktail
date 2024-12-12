@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Text, View, Pressable, TextInput, Alert, ScrollView, FlatList, Image } from 'react-native';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth, db, USERS_REF } from '../firebase/Config';
-import { changePassword, removeUser } from '../components/Auth';
+import { changePassword, removeUser, logout } from '../components/Auth';
 import { collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
 import { MaterialIcons } from '@expo/vector-icons';
 import styles from '../style/style';
