@@ -70,7 +70,7 @@ export default function Register({ navigation }) {
       <View style={styles.container}>
         <View style={styles.headerItem}>
         <Pressable onPress={goBack} style={styles.backButton}>
-         <MaterialIcons name="keyboard-backspace" size={40} color="black" />
+         <MaterialIcons name="keyboard-backspace" size={40} color="#F1E9DC" />
         </Pressable>
           <Text style={styles.header}>Register</Text>
           <Pressable style={styles.logout} onPress={handlePressLogout}>
@@ -106,7 +106,7 @@ export default function Register({ navigation }) {
     >
       <View style={styles.container}>
              <Pressable onPress={goBack} style={styles.backButton}>
-         <MaterialIcons name="keyboard-backspace" size={40} color="black" />
+         <MaterialIcons name="keyboard-backspace" size={40} color="#F1E9DC" />
         </Pressable>
         <View style={styles.headerItem}>
           <Text style={styles.header}>Register</Text>

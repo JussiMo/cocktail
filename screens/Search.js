@@ -156,8 +156,9 @@ export default function Search() {
       colors={['#2c0305', '#511414',]} // Gradient colors 
       style={[styles.gradient]}
     >
-      <View>
+      <View style={styles.randContainer}>
         {selectedCocktail ? (
+          <>
           <ScrollView contentContainerStyle={[styles.randomcontainer]}>
             <View style={{ alignSelf: 'flex-start' }}>
               <Pressable onPress={goBack}>
@@ -165,7 +166,7 @@ export default function Search() {
               </Pressable>
             </View>
             <View style={styles.container}>
-              <Text style={styles.header}>{name}</Text>
+              <Text style={styles.searchHeader}>{name}</Text>
               <Image source={{ uri: image }} style={styles.image} />
               <Pressable
                 style={[styles.randombutton]}
@@ -208,11 +209,14 @@ export default function Search() {
                   <Text style={styles.text}>{instructions}</Text>
                 </Animated.View>
               )}
+              </View>
+              </ScrollView>
+              <View style={styles.buttoncontainer}>
               <Pressable style={styles.randombuttonpieni} onPress={() => saveDrink(drinkId)}>
                 <Text style={styles.randombuttontextpieni}>Save drink</Text>
               </Pressable>
-            </View>
-          </ScrollView>
+              </View>
+          </>
         ) : (
           <FlatList
             data={cocktails}

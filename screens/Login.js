@@ -75,7 +75,7 @@ export default function Login({ navigation }) {
       >
       <View style={styles.container}>
         <Pressable onPress={goBack} style={styles.backButton}>
-         <MaterialIcons name="keyboard-backspace" size={40} color="black" />
+         <MaterialIcons name="keyboard-backspace" size={40} color="#F1E9DC" />
         </Pressable>
         <View style={styles.headerItem}>      
           <Text style={styles.header}>Login</Text>
@@ -102,7 +102,7 @@ export default function Login({ navigation }) {
       >
       <View style={styles.container}>
         <Pressable onPress={goBack} style={styles.backButton}>
-         <MaterialIcons name="keyboard-backspace" size={40} color="black" />
+         <MaterialIcons name="keyboard-backspace" size={40} color="#F1E9DC" />
         </Pressable>
         <View style={styles.headerItem}>
           <Text style={styles.header}>Login</Text>

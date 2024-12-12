@@ -98,9 +98,9 @@ export default StyleSheet.create({
         borderRadius: 10,
         paddingHorizontal: 10,
         paddingVertical: 5,
-        marginTop: Constants.statusBarHeight + 20,
-        marginBottom: Constants.statusBarHeight + 5,
-        marginLeft: Constants.statusBarHeight + 1,
+        marginTop: Constants.statusBarHeight,
+        marginBottom: Constants.statusBarHeight,
+        marginLeft: Constants.statusBarHeight,
         color: 'white'
     },
     radioButtonText: {
@@ -209,7 +209,6 @@ export default StyleSheet.create({
         paddingHorizontal: 20,
         borderRadius: 10,
         width: '90%',
-        marginBottom: 15,
         shadowColor: '#FFF1E6',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
@@ -257,7 +256,14 @@ export default StyleSheet.create({
         fontFamily:'IMFell',
         color: '#511414',
         fontSize: 21,
-    },    
+    },
+    searchHeader: {
+        fontFamily:'IMFell',
+        fontSize: 30,
+        color: '#FFF1E6',
+        textAlign: 'center',
+        marginBottom: 25,
+    },
     // Profile.js tyylit
     backButton: {
         position: 'absolute',
