@@ -47,15 +47,13 @@ export default function Profile({ navigation }) {
 
       const drinks = [];
       for (const doc of querySnapshot.docs) {
-        const { id } = doc.data(); // Assuming your data structure has an 'id' field.
+        const { id } = doc.data();
         const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
         const data = await response.json();
         if (data.drinks && data.drinks.length > 0) {
-          drinks.push(data.drinks[0]); // Fetch full drink details.
+          drinks.push(data.drinks[0]);
         }
       }
-
-      console.log('Drinks fetched:', drinks);
       setDrinksList(drinks);
     } catch (error) {
       console.log('Error fetching drinks:', error);
@@ -122,7 +120,6 @@ export default function Profile({ navigation }) {
       strInstructions: instructions,
     } = drink;
 
-    // Dynamically fetch ingredients and measures
     const ingredients = Object.keys(drink)
       .filter((key) => key.startsWith('strIngredient'))
       .map((key) => drink[key])
@@ -134,9 +131,9 @@ export default function Profile({ navigation }) {
       .filter(Boolean);
 
     return (
-      <View style={styles.card}>
-        <Image source={{ uri: image }} style={styles.cardImage} />
-        <Text style={styles.cardTitle}>{name}</Text>
+      <View style={styles.cardProfile}>
+        <Image source={{ uri: image }} style={styles.cardImageProfile} onError={()=> console.log('failed to load image')} />
+        <Text style={styles.cardTitleProfile}>{name}</Text>
         <Text style={styles.cardInstructions}>{instructions}</Text>
         <View>
           {ingredients.map((ingredient, index) => (
@@ -174,8 +171,6 @@ export default function Profile({ navigation }) {
       <LinearGradient colors={['#2c0305', '#511414']} style={styles.gradient}>
         <FlatList
           data={[]}
-          keyExtractor={(item) => item?.idDrink?.toString() || Math.random().toString()} // Empty data array
-          renderItem={({ item }) => null} // No need to render items here
           ListHeaderComponent={
             <View style={styles.container}>
               <Text style={styles.header}>Profile</Text>
@@ -196,7 +191,7 @@ export default function Profile({ navigation }) {
                   keyExtractor={(item) => item?.idDrink?.toString() || Math.random().toString()}
                   renderItem={({ item }) => (
                     <Pressable style={styles.drinkItem} onPress={() => setSelectedDrink(item)}>
-                      <Text style={styles.drinkName}>{item.strDrink || 'Unknown Drink'}</Text>
+                      <Text style={styles.drinkName}>{item.strDrink}</Text>
                     </Pressable>
                   )}
                 />
