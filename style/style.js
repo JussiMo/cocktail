@@ -378,6 +378,14 @@ export default StyleSheet.create({
         fontSize: 15,
         textAlign: 'center',
     }, 
+    deleteDrinkButton: {
+        position: 'absolute',
+        top: 5,
+        right: 5,
+        padding: 5,
+        backgroundColor: 'transparent',
+        borderRadius: 50,
+    }, 
     //Login.js tyylit
     loginButtonText: {
         fontFamily:'IMFell',

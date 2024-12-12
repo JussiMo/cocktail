@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Text, View, Pressable, TextInput, Alert, ScrollView, FlatList, Image } from 'react-native';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth, db, USERS_REF } from '../firebase/Config';
+import { auth, db, DRINKS_REF, USERS_REF } from '../firebase/Config';
 import { changePassword, removeUser, logout } from '../components/Auth';
-import { collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, updateDoc, deleteDoc } from 'firebase/firestore';
 import { MaterialIcons } from '@expo/vector-icons';
+import Toast from 'react-native-toast-message'
+import Entypo from '@expo/vector-icons/Entypo';
 import styles from '../style/style';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -37,7 +39,7 @@ export default function Profile({ navigation }) {
         setIsLoggedIn(false);
       }
     });
-  }, []);
+  }, [])
 
   const fetchDrinksList = async () => {
     try {
@@ -51,23 +53,28 @@ export default function Profile({ navigation }) {
         const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
         const data = await response.json();
         if (data.drinks && data.drinks.length > 0) {
-          drinks.push(data.drinks[0]);
+          drinks.push({
+            ...data.drinks[0],
+            firestoreId: doc.id,
+          });
         }
       }
       setDrinksList(drinks);
     } catch (error) {
-      console.log('Error fetching drinks:', error);
+      console.error('Error fetching drinks:', error);
       Alert.alert('Failed to fetch drinks. Please try again later.');
     }
-  };
+  }
+
+
 
   const toggleDrinksList = () => {
     if (!showDrinks) {
-      fetchDrinksList();     
+      fetchDrinksList();
     }
     setShowDrinks(!showDrinks);
     closeCard();
-  };
+  }
 
   const updateUserData = async () => {
     const colRef = collection(db, USERS_REF);
@@ -77,7 +84,7 @@ export default function Profile({ navigation }) {
         console.log('Update failed: ' + error.message);
         Alert.alert('Update failed: ' + error.message);
       });
-  };
+  }
 
   const handlePressChangePw = () => {
     if (!password) {
@@ -91,7 +98,7 @@ export default function Profile({ navigation }) {
       setPassword('');
       setConfirmPassword('');
     }
-  };
+  }
 
   const handlePressDelete = () => {
     if (confirmDelete !== 'DELETE') {
@@ -100,20 +107,47 @@ export default function Profile({ navigation }) {
       removeUser();
       navigation.navigate('Login');
     }
-  };
+  }
 
   const handlePressLogout = () => {
     logout();
     navigation.navigate('Login');
+  }
+
+  const removeDrink = async (id) => {
+    if (!id) {
+      Alert.alert('Error: Drink ID is missing!');
+      console.error('Error: Missing Firestore document ID.');
+      return;
+    }
+    try {
+      const subColRef = collection(db, USERS_REF, auth.currentUser.uid, DRINKS_REF);
+      await deleteDoc(doc(subColRef, id));
+      Toast.show({
+        type: 'info',
+        text1: 'Drink removed from favorites',
+      })
+      fetchDrinksList(); // Refresh the drinks list
+      closeCard();
+    } catch (error) {
+      console.error('Error removing drink:', error.message);
+      Toast.show({
+        type: 'info',
+        text1: 'Failed to remove drink',
+      })
+    }
   };
+
+
+
+
 
   const closeCard = () => {
     setSelectedDrink(null);
-  };
+  }
 
   const Card = ({ drink }) => {
     if (!drink) return null;
-
     const {
       strDrink: name,
       strDrinkThumb: image,
@@ -132,7 +166,7 @@ export default function Profile({ navigation }) {
 
     return (
       <View style={styles.cardProfile}>
-        <Image source={{ uri: image }} style={styles.cardImageProfile} onError={()=> console.log('failed to load image')} />
+        <Image source={{ uri: image }} style={styles.cardImageProfile} onError={() => console.log('failed to load image')} />
         <Text style={styles.cardTitleProfile}>{name}</Text>
         <Text style={styles.cardInstructions}>{instructions}</Text>
         <View>
@@ -145,9 +179,20 @@ export default function Profile({ navigation }) {
         <Pressable style={styles.profileButton} onPress={closeCard}>
           <Text style={styles.profileButtonText}>CLOSE</Text>
         </Pressable>
+        <Pressable
+          style={styles.deleteDrinkButton}
+          onPress={() => removeDrink(drink.firestoreId)}
+        >
+          <Entypo
+            name={'cross'}
+            size={32}
+            color={'red'}
+          />
+        </Pressable>
       </View>
-    );
-  };
+    )
+  }
+
 
   if (!isLoggedIn) {
     return (
@@ -190,9 +235,11 @@ export default function Profile({ navigation }) {
                   style={styles.drinksListContainer}
                   keyExtractor={(item) => item?.idDrink?.toString() || Math.random().toString()}
                   renderItem={({ item }) => (
-                    <Pressable style={styles.drinkItem} onPress={() => setSelectedDrink(item)}>
-                      <Text style={styles.drinkName}>{item.strDrink}</Text>
-                    </Pressable>
+                    <>
+                      <Pressable style={styles.drinkItem} onPress={() => setSelectedDrink(item)}>
+                        <Text style={styles.drinkName}>{item.strDrink}</Text>
+                      </Pressable>
+                    </>
                   )}
                 />
               )}
