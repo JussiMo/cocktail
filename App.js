@@ -21,6 +21,7 @@ function TabNavigator() {
   return (
     <Tab.Navigator
       sceneContainerStyle={{ backgroundColor: 'transparent' }}
+      backBehavior='history'
       screenOptions={({ route }) => ({
         headerShown:false,
         tabBarIcon: ({ focused, color, size }) => {
