@@ -13,7 +13,7 @@ import Toast from 'react-native-toast-message'
 
 
 
-export default function Search() {
+export default function Search({navigation}) {
 
   // const [ingredient, setIngredient] = useState('')
   const [cocktails, setCocktails] = useState([])
@@ -107,6 +107,26 @@ export default function Search() {
     setCocktailVisible(false);
   };
 
+  useEffect(() => {
+    const backAction = () => {
+      if (selectedCocktail) {
+        setSelectedCocktail(null); 
+        setCocktailVisible(false); 
+        return true; 
+      } else if (navigation.canGoBack()) {
+        navigation.goBack();
+        return true; 
+      }
+      return false; 
+    };
+  
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction
+    );
+  
+    return () => backHandler.remove(); // Poista kuuntelija unmountissa
+  }, [selectedCocktail, navigation]);
 
   const Card = ({ cocktail, onPress }) => {
     return (
