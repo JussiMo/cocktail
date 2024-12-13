@@ -189,7 +189,7 @@ export default StyleSheet.create({
     },
      //RANDOM.JS TYYLIT//
      randContainer: {
-            flex: 1,
+        flex: 1,
      },
      randomcontainer: {
         padding: 20,
@@ -262,7 +262,8 @@ export default StyleSheet.create({
         fontSize: 30,
         color: '#FFF1E6',
         textAlign: 'center',
-        marginBottom: 25,
+        marginTop: Constants.statusBarHeight + 30,
+        marginBottom: 30,
     },
     // Profile.js tyylit
     cardProfile: {

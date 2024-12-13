@@ -160,11 +160,9 @@ export default function Search() {
         {selectedCocktail ? (
           <>
           <ScrollView contentContainerStyle={[styles.randomcontainer]}>
-            <View style={{ alignSelf: 'flex-start' }}>
-              <Pressable onPress={goBack}>
-                <Text style={styles.back}>Back</Text>
+              <Pressable onPress={goBack} style={styles.backButton}>
+                       <MaterialIcons name="keyboard-backspace" size={40} color="#F1E9DC" />
               </Pressable>
-            </View>
             <View style={styles.container}>
               <Text style={styles.searchHeader}>{name}</Text>
               <Image source={{ uri: image }} style={styles.image} />
