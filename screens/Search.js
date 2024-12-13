@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { FlatList, Image, Keyboard, Pressable, ScrollView, Text, TextInput, Touchable, TouchableOpacity, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { FlatList, Image, Keyboard, Pressable, ScrollView, Text, TextInput, Touchable, TouchableOpacity, View, BackHandler } from 'react-native';
 import { addDoc, collection, getDocs, where, query } from 'firebase/firestore';
 import styles from '../style/style';
 import { RadioButton, Card } from 'react-native-paper';
@@ -103,9 +103,10 @@ export default function Search() {
   }
 
   const goBack = () => {
-    setSelectedCocktail(null)
-    setCocktailVisible(false)
-  }
+    setSelectedCocktail(null);
+    setCocktailVisible(false);
+  };
+
 
   const Card = ({ cocktail, onPress }) => {
     return (
@@ -161,7 +162,7 @@ export default function Search() {
           <>
           <ScrollView contentContainerStyle={[styles.randomcontainer]}>
               <Pressable onPress={goBack} style={styles.backButton}>
-                       <MaterialIcons name="keyboard-backspace" size={40} color="#F1E9DC" />
+                <MaterialIcons name="keyboard-backspace" size={40} color="#F1E9DC" />
               </Pressable>
             <View style={styles.container}>
               <Text style={styles.searchHeader}>{name}</Text>

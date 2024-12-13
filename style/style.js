@@ -17,6 +17,7 @@ export default StyleSheet.create({
         textAlign: 'center',
         marginTop: Constants.statusBarHeight + 10,
         marginBottom: Constants.statusBarHeight + 5,
+        maxWidth: '60%',
     },
     text: {
         fontFamily: 'CormorantMedium',
@@ -262,8 +263,9 @@ export default StyleSheet.create({
         fontSize: 30,
         color: '#FFF1E6',
         textAlign: 'center',
-        marginTop: Constants.statusBarHeight + 30,
+        marginTop: Constants.statusBarHeight + 10,
         marginBottom: 30,
+        maxWidth: '60%',
     },
     // Profile.js tyylit
     cardProfile: {
