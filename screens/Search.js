@@ -271,7 +271,7 @@ export default function Search({navigation}) {
                 <Pressable style={styles.button} onPress={searchCocktails}>
                   <Text style={styles.searchButtontext}>Search</Text>
                 </Pressable>
-                {error && <Text>{error}</Text>}
+                {error && <Text style={styles.text}>{error}</Text>}
               </View>
             }
             renderItem={({ item }) => <Card cocktail={item} onPress={CocktailData}></Card>}
