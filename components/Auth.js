@@ -106,16 +106,7 @@ const deleteTodoDocuments = async () => {
   unsubscribe();
 }
 
-const removeTodo = async (id) => {
-  try {
-    const subColRef = 
-      collection(db, USERS_REF, auth.currentUser.uid, TODOS_REF);
-    await deleteDoc(doc(subColRef, id));
-  }
-  catch (error) {
-    console.log(error.message);
-  }
-}
+
 
 const deleteUserDocument = async () => {
   await deleteDoc(doc(db, USERS_REF, auth.currentUser.uid))
